@@ -9,6 +9,10 @@ def libraries = rootProject.ext.libraries
 android {
     compileSdkVersion configuration.compileSdkVersion
 
+    dataBinding {
+        enabled = true
+    }
+
     defaultConfig {
         applicationId configuration.package
         minSdkVersion configuration.minSdkVersion
