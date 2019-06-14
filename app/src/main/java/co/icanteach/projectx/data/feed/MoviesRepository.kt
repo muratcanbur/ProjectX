@@ -1,4 +1,4 @@
-package co.icanteach.projectx.data
+package co.icanteach.projectx.data.feed
 
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject

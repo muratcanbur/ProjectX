@@ -2,7 +2,7 @@ package co.icanteach.projectx.ui
 
 import android.util.Log
 import co.icanteach.projectx.common.RxAwareViewModel
-import co.icanteach.projectx.data.MoviesRepository
+import co.icanteach.projectx.data.feed.MoviesRepository
 import javax.inject.Inject
 
 class MoviesViewModel @Inject constructor(private val moviesRepository: MoviesRepository) : RxAwareViewModel() {
