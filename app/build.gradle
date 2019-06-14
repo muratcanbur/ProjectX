@@ -1,19 +1,28 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
+apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 
+def configuration = rootProject.ext.configuration
+def libraries = rootProject.ext.libraries
+
 android {
-    compileSdkVersion 28
+    compileSdkVersion configuration.compileSdkVersion
+
     defaultConfig {
-        applicationId "co.icanteach.projectx"
-        minSdkVersion 21
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        applicationId configuration.package
+        minSdkVersion configuration.minSdkVersion
+        targetSdkVersion configuration.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    dataBinding {
+        enabled = true
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -24,11 +33,28 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.core:core-ktx:1.0.2'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "androidx.appcompat:appcompat:${libraries.appcompatVersion}"
+
+    // dagger
+    implementation "com.google.dagger:dagger:${libraries.daggerVersion}"
+    implementation "com.google.dagger:dagger-android-support:${libraries.daggerVersion}"
+    kapt "com.google.dagger:dagger-compiler:${libraries.daggerVersion}"
+
+    // ViewModel & LiveData
+    implementation "androidx.lifecycle:lifecycle-extensions:${libraries.lifecycleVersion}"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${libraries.lifecycleVersion}"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    kapt "androidx.lifecycle:lifecycle-compiler:${libraries.lifecycleVersion}"
+
+    // Retrofit & Gson.
+    implementation "com.squareup.retrofit2:retrofit:${libraries.retrofitVersion}"
+    implementation "com.squareup.retrofit2:converter-gson:${libraries.retrofitVersion}"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:${libraries.retrofitVersion}"
+    implementation "com.squareup.okhttp3:logging-interceptor:${libraries.okhttpVersion}"
+
+    // Testing
+    testImplementation "junit:junit:${libraries.junitVersion}"
+    androidTestImplementation "androidx.test:runner:${libraries.androidxTestRunnerVersion}"
+    androidTestImplementation "androidx.test.espresso:espresso-core:${libraries.espressoCoreVersion}"
 }
