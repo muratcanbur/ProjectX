@@ -21,6 +21,7 @@ class NetworkModule {
     @Singleton
     fun provideOkHttpClient(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
         val okHttpBuilder = OkHttpClient.Builder()
+        okHttpBuilder.addInterceptor(loggingInterceptor)
         return okHttpBuilder.build()
     }
 
@@ -29,7 +30,7 @@ class NetworkModule {
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .client(okHttpClient)
-            .baseUrl("-- BASE URL --")
+            .baseUrl("https://api.themoviedb.org/3/")
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .build()

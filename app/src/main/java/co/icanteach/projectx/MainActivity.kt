@@ -23,6 +23,6 @@ class MainActivity : AppCompatActivity() {
         moviesViewModel =
             ViewModelProviders.of(this, viewModelProviderFactory).get(MoviesViewModel::class.java)
 
-        moviesViewModel.fetchMovies()
+        moviesViewModel.fetchMovies(1)
     }
 }
