@@ -40,6 +40,7 @@ dependencies {
     implementation "com.google.dagger:dagger:${libraries.daggerVersion}"
     implementation "com.google.dagger:dagger-android-support:${libraries.daggerVersion}"
     kapt "com.google.dagger:dagger-compiler:${libraries.daggerVersion}"
+    kapt "com.google.dagger:dagger-android-processor:${libraries.daggerVersion}"
 
     // ViewModel & LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:${libraries.lifecycleVersion}"
