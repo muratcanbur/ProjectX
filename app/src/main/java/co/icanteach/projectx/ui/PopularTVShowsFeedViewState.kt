@@ -9,4 +9,6 @@ class PopularTVShowsFeedViewState(
     val data: PopularTVShowsResponse?
 ) {
     fun getPopularTvShows() = data?.results ?: mutableListOf()
+
+    fun isLoading() = status == Status.LOADING
 }

@@ -5,9 +5,32 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         tools:context=".MainActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+    <data>
+        <variable name="viewState"
+                  type="co.icanteach.projectx.ui.PopularTVShowsFeedViewState"/>
+    </data>
+
+    <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-    />
+            android:layout_height="wrap_content">
+
+        <ProgressBar
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:theme="@style/LinearProgress"
+                app:visibleIf="@{viewState.isLoading}"/>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+        />
+
+
+    </LinearLayout>
+
 </layout>

@@ -8,4 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="LinearProgress" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
 </resources>

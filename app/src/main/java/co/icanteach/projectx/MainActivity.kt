@@ -58,6 +58,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun renderPopularTVShows(feedViewState: PopularTVShowsFeedViewState) {
+        with(binding) {
+            viewState = feedViewState
+            executePendingBindings()
+        }
         tvShowsFeedAdapter.setTvShows(feedViewState.getPopularTvShows())
     }
 
