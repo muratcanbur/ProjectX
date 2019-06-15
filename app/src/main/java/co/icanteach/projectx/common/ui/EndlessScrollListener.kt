@@ -3,9 +3,11 @@ package co.icanteach.projectx.common.ui
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
+
 /**
+ * this is just a copy-paste class.
  * reference :
- * https://github.com/codepath/android_guides/wiki/Endless-Scrolling-with-AdapterViews-and-RecyclerView
+ * https://gist.github.com/pratikbutani/dc6b963aa12200b3ad88aecd0d103872
  */
 
 abstract class EndlessScrollListener constructor(private val linearLayoutManager: LinearLayoutManager) :
@@ -17,6 +19,7 @@ abstract class EndlessScrollListener constructor(private val linearLayoutManager
     private var currentItemCount: Int = 0
     private var currentPage = 1
     private var pageCount: Int? = null
+
 
     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
         super.onScrolled(recyclerView, dx, dy)
@@ -33,7 +36,7 @@ abstract class EndlessScrollListener constructor(private val linearLayoutManager
 
         if (shouldLoadNextPage(visibleThreshold)) {
             currentPage++
-            recyclerView.post { onLoadNextPage(currentPage) }
+            recyclerView.post { onLoadMore(currentPage) }
             loading = true
         }
     }
@@ -60,5 +63,5 @@ abstract class EndlessScrollListener constructor(private val linearLayoutManager
         currentPage = 1
     }
 
-    abstract fun onLoadNextPage(page: Int)
+    abstract fun onLoadMore(page: Int)
 }

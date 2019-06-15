@@ -1,21 +1,12 @@
 package co.icanteach.projectx.ui
 
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import co.icanteach.projectx.common.Resource
 import co.icanteach.projectx.common.RxAwareViewModel
 import co.icanteach.projectx.data.feed.MoviesRepository
 import co.icanteach.projectx.data.feed.PopularTVShowsResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
-
-fun <T> LiveData<T>.observeNonNull(owner: LifecycleOwner, observer: (t: T) -> Unit) {
-    this.observe(owner, Observer {
-        it?.let(observer)
-    })
-}
 
 class PopularTVShowsViewModel @Inject constructor(private val moviesRepository: MoviesRepository) : RxAwareViewModel() {
 

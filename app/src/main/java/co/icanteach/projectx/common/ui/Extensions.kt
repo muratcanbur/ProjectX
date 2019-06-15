@@ -5,6 +5,9 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import co.icanteach.projectx.common.Resource
 import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
@@ -23,4 +26,10 @@ fun <T : ViewDataBinding> ViewGroup?.inflate(@LayoutRes layoutId: Int, attachToP
  */
 fun <T> applyLoading(): ObservableTransformer<Resource<T>, Resource<T>> = ObservableTransformer { upstream ->
     Observable.just(Resource.loading<T>()).concatWith(upstream)
+}
+
+fun <T> LiveData<T>.observeNonNull(owner: LifecycleOwner, observer: (t: T) -> Unit) {
+    this.observe(owner, Observer {
+        it?.let(observer)
+    })
 }

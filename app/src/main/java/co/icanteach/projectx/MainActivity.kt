@@ -6,13 +6,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.icanteach.projectx.common.ui.EndlessScrollListener
+import co.icanteach.projectx.common.ui.observeNonNull
 import co.icanteach.projectx.databinding.ActivityMainBinding
 import co.icanteach.projectx.ui.PopularTVShowsFeedAdapter
 import co.icanteach.projectx.ui.PopularTVShowsFeedViewState
 import co.icanteach.projectx.ui.PopularTVShowsViewModel
-import co.icanteach.projectx.ui.observeNonNull
 import dagger.android.AndroidInjection
 import javax.inject.Inject
+import androidx.recyclerview.widget.RecyclerView
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -38,14 +40,20 @@ class MainActivity : AppCompatActivity() {
             renderPopularTVShows(it)
         }
 
-        moviesViewModel.fetchMovies(FIRST_PAGE)
-
+        fetchMovies(FIRST_PAGE)
         initPopularTVShowsRecyclerView()
     }
 
     private fun initPopularTVShowsRecyclerView() {
+        val linearLayoutManager = LinearLayoutManager(this)
         binding.recyclerView.apply {
             adapter = tvShowsFeedAdapter
+            layoutManager = linearLayoutManager
+            addOnScrollListener(object : EndlessScrollListener(linearLayoutManager) {
+                override fun onLoadMore(page: Int) {
+                    fetchMovies(page)
+                }
+            })
         }
     }
 
