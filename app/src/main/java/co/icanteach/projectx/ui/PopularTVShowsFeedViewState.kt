@@ -11,4 +11,8 @@ class PopularTVShowsFeedViewState(
     fun getPopularTvShows() = data?.results ?: mutableListOf()
 
     fun isLoading() = status == Status.LOADING
+
+    fun getErrorMessage() = error?.message
+
+    fun shouldShowErrorMessage() = error != null
 }

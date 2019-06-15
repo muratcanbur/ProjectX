@@ -14,6 +14,7 @@ a simple app that contains some basic functionality. It connects to the Movies D
 - Glide - for image loading.
 - RxJava 2 - reactive programming paradigm
 - LiveData - use LiveData to see UI update with data changes.
+- Data Binding - bind UI components in layouts to data sources
 
 ## Overview of app arch.
 - follow the rules from Architecture guidelines recommended by Google.
