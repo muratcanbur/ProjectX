@@ -27,12 +27,12 @@ ViewModel and ViewStates classes should be tested.
 
 * [PopularTvShowsTestSuite](https://github.com/muratcanbur/ProjectX/blob/master/app/src/test/java/co/icanteach/projectx/PopularTvShowsTestSuite.kt)
 
-# ViewModel
+### ViewModel
 need to make sure that the correct state changes occur at the right time during remote data request.
 
 * [PopularTVShowsViewModelTest](https://github.com/muratcanbur/ProjectX/blob/master/app/src/test/java/co/icanteach/projectx/PopularTVShowsViewModelTest.kt)
 
-# ViewState 
+### ViewState 
 ViewStates are responsible for reporting changes to the UI.
 
 * [PopularTVShowsFeedItemViewStateTest](https://github.com/muratcanbur/ProjectX/blob/master/app/src/test/java/co/icanteach/projectx/PopularTVShowsFeedItemViewStateTest.kt)
