@@ -24,7 +24,14 @@ buildscript {
                 cardViewVersion          : "1.0.0",
                 rxAndroidVersion         : '2.1.0',
                 rxJavaVersion            : '2.2.3',
-                glideVersion             : '4.9.0'
+                glideVersion             : '4.9.0',
+                truthVersion             : '0.42',
+                truthExtVersion          : '1.0.0',
+                mockKVersion             : '1.9.3',
+                mockitoVersion           : '2.23.0',
+                mockitoKotlinVersion     : "2.1.0",
+                orchestratorVersion      : "1.1.1",
+                coreTestingVersion       : '2.0.0'
         ]
 
         versionMajor = 1

@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         moviesViewModel =
             ViewModelProviders.of(this, viewModelProviderFactory).get(PopularTVShowsViewModel::class.java)
 
-        moviesViewModel.popularTvShowsLiveData.observeNonNull(this) {
+        moviesViewModel.getPopularTvShowsLiveData().observeNonNull(this) {
             renderPopularTVShows(it)
         }
 

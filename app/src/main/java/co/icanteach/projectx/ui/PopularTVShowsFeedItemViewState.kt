@@ -2,7 +2,7 @@ package co.icanteach.projectx.ui
 
 import co.icanteach.projectx.data.feed.TvShow
 
-class PopularTVShowsFeedItemViewState(val tvShow: TvShow) {
+class PopularTVShowsFeedItemViewState(private val tvShow: TvShow) {
 
     fun getImageUrl() = tvShow.imageUrl
 

@@ -1,5 +1,6 @@
 package co.icanteach.projectx.ui
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import co.icanteach.projectx.common.Resource
 import co.icanteach.projectx.common.RxAwareViewModel
@@ -10,7 +11,9 @@ import javax.inject.Inject
 
 class PopularTVShowsViewModel @Inject constructor(private val moviesRepository: MoviesRepository) : RxAwareViewModel() {
 
-    internal val popularTvShowsLiveData = MutableLiveData<PopularTVShowsFeedViewState>()
+    private val popularTvShowsLiveData = MutableLiveData<PopularTVShowsFeedViewState>()
+
+    fun getPopularTvShowsLiveData(): LiveData<PopularTVShowsFeedViewState> = popularTvShowsLiveData
 
     fun fetchMovies(page: Int) =
         moviesRepository
