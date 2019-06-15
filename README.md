@@ -37,3 +37,4 @@ need to make sure that the correct state changes occur at the right time during 
 ViewStates are responsible for reporting changes to the UI.
 
 * [PopularTVShowsFeedItemViewStateTest](https://github.com/muratcanbur/ProjectX/blob/master/app/src/test/java/co/icanteach/projectx/PopularTVShowsFeedItemViewStateTest.kt)
+* [PopularTVShowsFeedViewStateTest](https://github.com/muratcanbur/ProjectX/blob/master/app/src/test/java/co/icanteach/projectx/PopularTVShowsFeedViewStateTest.kt)

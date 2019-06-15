@@ -6,6 +6,7 @@ import org.junit.runners.Suite
 @RunWith(Suite::class)
 @Suite.SuiteClasses(
     PopularTVShowsViewModelTest::class,
-    PopularTVShowsFeedItemViewStateTest::class
+    PopularTVShowsFeedItemViewStateTest::class,
+    PopularTVShowsFeedViewStateTest::class
 )
 class PopularTvShowsTestSuite

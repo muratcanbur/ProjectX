@@ -5,8 +5,8 @@ import co.icanteach.projectx.data.feed.PopularTVShowsResponse
 
 class PopularTVShowsFeedViewState(
     val status: Status,
-    val error: Throwable?,
-    val data: PopularTVShowsResponse?
+    val error: Throwable? = null,
+    val data: PopularTVShowsResponse? = null
 ) {
     fun getPopularTvShows() = data?.results ?: mutableListOf()
 
