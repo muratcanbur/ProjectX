@@ -19,7 +19,12 @@ buildscript {
                 daggerVersion            : "2.13",
                 lifecycleVersion         : "2.0.0",
                 retrofitVersion          : "2.3.0",
-                okhttpVersion                   : "3.9.0"
+                okhttpVersion            : "3.9.0",
+                recyclerViewVersion      : "1.0.0",
+                cardViewVersion          : "1.0.0",
+                rxAndroidVersion         : '2.1.0',
+                rxJavaVersion            : '2.2.3',
+                glideVersion             : '4.9.0'
         ]
 
         versionMajor = 1

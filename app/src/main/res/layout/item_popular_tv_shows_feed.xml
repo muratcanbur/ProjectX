@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+                name="viewState"
+                type="co.icanteach.projectx.ui.PopularTVShowsFeedItemViewState"/>
+
+    </data>
+
+
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white">
+
+        <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{viewState.imageUrl}"/>
+
+        <LinearLayout
+                android:background="@color/colorAccent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvSingleBannerSubTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:text="@{viewState.tvShowName}"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    tools:text="@string/app_name"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvSingleBannerTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:text="@{viewState.tvShowRating}"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    tools:text="@string/app_name"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>

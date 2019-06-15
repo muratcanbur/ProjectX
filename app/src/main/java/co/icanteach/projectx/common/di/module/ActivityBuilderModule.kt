@@ -2,6 +2,7 @@ package co.icanteach.projectx.common.di.module
 
 import co.icanteach.projectx.MainActivity
 import co.icanteach.projectx.common.di.scope.ActivityScope
+import co.icanteach.projectx.ui.PopularTvShowActivityModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -9,6 +10,6 @@ import dagger.android.ContributesAndroidInjector
 abstract class ActivityBuilderModule {
 
     @ActivityScope
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(modules = [PopularTvShowActivityModule::class])
     abstract fun bindMainActivity(): MainActivity
 }

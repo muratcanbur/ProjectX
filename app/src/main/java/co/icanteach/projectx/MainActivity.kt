@@ -2,9 +2,15 @@ package co.icanteach.projectx
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
-import co.icanteach.projectx.ui.MoviesViewModel
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.*
+import androidx.recyclerview.widget.LinearLayoutManager
+import co.icanteach.projectx.common.ui.EndlessScrollListener
+import co.icanteach.projectx.databinding.ActivityMainBinding
+import co.icanteach.projectx.ui.PopularTVShowsFeedAdapter
+import co.icanteach.projectx.ui.PopularTVShowsFeedViewState
+import co.icanteach.projectx.ui.PopularTVShowsViewModel
+import co.icanteach.projectx.ui.observeNonNull
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
@@ -13,16 +19,45 @@ class MainActivity : AppCompatActivity() {
     @Inject
     internal lateinit var viewModelProviderFactory: ViewModelProvider.Factory
 
-    private lateinit var moviesViewModel: MoviesViewModel
+    @Inject
+    internal lateinit var tvShowsFeedAdapter: PopularTVShowsFeedAdapter
+
+    private lateinit var moviesViewModel: PopularTVShowsViewModel
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         moviesViewModel =
-            ViewModelProviders.of(this, viewModelProviderFactory).get(MoviesViewModel::class.java)
+            ViewModelProviders.of(this, viewModelProviderFactory).get(PopularTVShowsViewModel::class.java)
 
-        moviesViewModel.fetchMovies(1)
+        moviesViewModel.popularTvShowsLiveData.observeNonNull(this) {
+            renderPopularTVShows(it)
+        }
+
+        moviesViewModel.fetchMovies(FIRST_PAGE)
+
+        initPopularTVShowsRecyclerView()
+    }
+
+    private fun initPopularTVShowsRecyclerView() {
+        binding.recyclerView.apply {
+            adapter = tvShowsFeedAdapter
+        }
+    }
+
+    private fun renderPopularTVShows(feedViewState: PopularTVShowsFeedViewState) {
+        tvShowsFeedAdapter.setTvShows(feedViewState.getPopularTvShows())
+    }
+
+    private fun fetchMovies(page: Int) {
+        moviesViewModel.fetchMovies(page)
+    }
+
+    companion object {
+        const val FIRST_PAGE = 1
     }
 }
