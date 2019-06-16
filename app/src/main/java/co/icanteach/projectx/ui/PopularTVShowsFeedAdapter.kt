@@ -32,7 +32,7 @@ class PopularTVShowsFeedAdapter @Inject constructor() :
         notifyItemRangeInserted(beforeSize, tvShows.size)
     }
 
-    inner class PopularTVShowsFeedItemViewHolder(val binding: ItemPopularTvShowsFeedBinding) :
+    inner class PopularTVShowsFeedItemViewHolder(private val binding: ItemPopularTvShowsFeedBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(tvShow: TvShow) {

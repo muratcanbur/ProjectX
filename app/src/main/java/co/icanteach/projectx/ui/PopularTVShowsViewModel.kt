@@ -20,9 +20,7 @@ class PopularTVShowsViewModel @Inject constructor(private val moviesRepository: 
         moviesRepository
             .fetchMovies(page)
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { resource ->
-                onMoviesResultReady(resource)
-            }
+            .subscribe(this::onMoviesResultReady)
             .also {
                 disposable += it
             }

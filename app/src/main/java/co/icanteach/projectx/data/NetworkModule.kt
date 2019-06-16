@@ -38,7 +38,7 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideEslMasterRestInterface(retrofit: Retrofit): InterviewRestInterface {
+    fun provideRestInterface(retrofit: Retrofit): InterviewRestInterface {
         return retrofit.create(InterviewRestInterface::class.java)
     }
 }
