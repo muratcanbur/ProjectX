@@ -7,7 +7,7 @@ import io.reactivex.disposables.CompositeDisposable
  * reference : https://github.com/googlesamples/android-architecture-components
  */
 open class RxAwareViewModel : ViewModel() {
-    private val disposable = CompositeDisposable()
+    val disposable = CompositeDisposable()
 
     override fun onCleared() {
         if (!disposable.isDisposed) {
