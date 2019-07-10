@@ -38,3 +38,8 @@ ViewStates are responsible for reporting changes to the UI.
 
 * [PopularTVShowsFeedItemViewStateTest](https://github.com/muratcanbur/ProjectX/blob/master/app/src/test/java/co/icanteach/projectx/PopularTVShowsFeedItemViewStateTest.kt)
 * [PopularTVShowsFeedViewStateTest](https://github.com/muratcanbur/ProjectX/blob/master/app/src/test/java/co/icanteach/projectx/PopularTVShowsFeedViewStateTest.kt)
+
+## TODO for near future
+- [ ] improve application UI
+- [ ] fix problem about ViewModels are being reloaded on config changes
+- [ ] implement local storage example
