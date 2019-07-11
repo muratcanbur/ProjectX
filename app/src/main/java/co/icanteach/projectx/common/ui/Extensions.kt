@@ -38,3 +38,7 @@ fun <T> LiveData<T>.observeNonNull(owner: LifecycleOwner, observer: (t: T) -> Un
 operator fun CompositeDisposable.plusAssign(disposable: Disposable) {
     add(disposable)
 }
+
+fun Any?.runIfNull(block: () -> Unit) {
+    if (this == null) block()
+}

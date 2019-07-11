@@ -1,19 +1,20 @@
 package co.icanteach.projectx
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.*
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.icanteach.projectx.common.ui.EndlessScrollListener
 import co.icanteach.projectx.common.ui.observeNonNull
+import co.icanteach.projectx.common.ui.runIfNull
 import co.icanteach.projectx.databinding.ActivityMainBinding
 import co.icanteach.projectx.ui.PopularTVShowsFeedAdapter
 import co.icanteach.projectx.ui.PopularTVShowsFeedViewState
 import co.icanteach.projectx.ui.PopularTVShowsViewModel
 import dagger.android.AndroidInjection
 import javax.inject.Inject
-import androidx.recyclerview.widget.RecyclerView
 
 
 class MainActivity : AppCompatActivity() {
@@ -40,7 +41,9 @@ class MainActivity : AppCompatActivity() {
             renderPopularTVShows(it)
         }
 
-        fetchMovies(FIRST_PAGE)
+        savedInstanceState.runIfNull {
+            fetchMovies(FIRST_PAGE)
+        }
         initPopularTVShowsRecyclerView()
     }
 
