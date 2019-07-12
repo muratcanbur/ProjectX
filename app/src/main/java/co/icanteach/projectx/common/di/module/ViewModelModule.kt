@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import co.icanteach.projectx.common.di.ViewModelFactory
 import co.icanteach.projectx.common.di.key.ViewModelKey
-import co.icanteach.projectx.ui.PopularTVShowsViewModel
+import co.icanteach.projectx.ui.populartvshows.PopularTVShowsViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

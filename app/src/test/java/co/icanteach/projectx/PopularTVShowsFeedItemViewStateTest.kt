@@ -1,7 +1,7 @@
 package co.icanteach.projectx
 
-import co.icanteach.projectx.data.feed.TvShow
-import co.icanteach.projectx.ui.PopularTVShowsFeedItemViewState
+import co.icanteach.projectx.ui.populartvshows.PopularTVShowsFeedItemViewState
+import co.icanteach.projectx.ui.populartvshows.model.PopularTvShowItem
 import com.google.common.truth.Truth
 import org.junit.Test
 
@@ -35,7 +35,11 @@ class PopularTVShowsFeedItemViewStateTest {
         Truth.assertThat(actualResult).isEqualTo("/hlLXt2tOPT6RRnjiUmoxyG1LTFi.jpg")
     }
 
-    private fun createDummyTvShow(): TvShow {
-        return TvShow(name = "Chernobyl", imageUrl = "/hlLXt2tOPT6RRnjiUmoxyG1LTFi.jpg", rating = "8.3")
+    private fun createDummyTvShow(): PopularTvShowItem {
+        return PopularTvShowItem(
+            name = "Chernobyl",
+            imageUrl = "/hlLXt2tOPT6RRnjiUmoxyG1LTFi.jpg",
+            rating = "8.3"
+        )
     }
 }

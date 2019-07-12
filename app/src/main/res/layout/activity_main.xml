@@ -7,7 +7,7 @@
 
     <data>
         <variable name="viewState"
-                  type="co.icanteach.projectx.ui.PopularTVShowsFeedViewState"/>
+                  type="co.icanteach.projectx.ui.populartvshows.PopularTVShowsFeedViewState"/>
     </data>
 
     <RelativeLayout

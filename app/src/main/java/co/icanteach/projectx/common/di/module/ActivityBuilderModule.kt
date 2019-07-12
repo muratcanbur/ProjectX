@@ -2,7 +2,7 @@ package co.icanteach.projectx.common.di.module
 
 import co.icanteach.projectx.MainActivity
 import co.icanteach.projectx.common.di.scope.ActivityScope
-import co.icanteach.projectx.ui.PopularTvShowActivityModule
+import co.icanteach.projectx.ui.populartvshows.PopularTvShowActivityModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

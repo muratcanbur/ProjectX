@@ -10,9 +10,9 @@ import co.icanteach.projectx.common.ui.EndlessScrollListener
 import co.icanteach.projectx.common.ui.observeNonNull
 import co.icanteach.projectx.common.ui.runIfNull
 import co.icanteach.projectx.databinding.ActivityMainBinding
-import co.icanteach.projectx.ui.PopularTVShowsFeedAdapter
-import co.icanteach.projectx.ui.PopularTVShowsFeedViewState
-import co.icanteach.projectx.ui.PopularTVShowsViewModel
+import co.icanteach.projectx.ui.populartvshows.PopularTVShowsFeedAdapter
+import co.icanteach.projectx.ui.populartvshows.PopularTVShowsFeedViewState
+import co.icanteach.projectx.ui.populartvshows.PopularTVShowsViewModel
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 

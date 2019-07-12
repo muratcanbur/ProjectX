@@ -1,7 +1,7 @@
 package co.icanteach.projectx
 
 import co.icanteach.projectx.common.Status
-import co.icanteach.projectx.ui.PopularTVShowsFeedViewState
+import co.icanteach.projectx.ui.populartvshows.PopularTVShowsFeedViewState
 import com.google.common.truth.Truth
 import org.junit.Test
 
@@ -11,7 +11,8 @@ class PopularTVShowsFeedViewStateTest {
     fun `should return loading true when status is loading`() {
 
         // Given
-        val givenViewState = PopularTVShowsFeedViewState(status = Status.LOADING)
+        val givenViewState =
+            PopularTVShowsFeedViewState(status = Status.LOADING)
 
         // When
         val actualResult = givenViewState.isLoading()
@@ -24,7 +25,8 @@ class PopularTVShowsFeedViewStateTest {
     fun `should not return loading false when status is error`() {
 
         // Given
-        val givenViewState = PopularTVShowsFeedViewState(status = Status.SUCCESS)
+        val givenViewState =
+            PopularTVShowsFeedViewState(status = Status.SUCCESS)
 
         // When
         val actualResult = givenViewState.isLoading()
@@ -51,7 +53,10 @@ class PopularTVShowsFeedViewStateTest {
 
         // Given
         val givenViewState =
-            PopularTVShowsFeedViewState(status = Status.ERROR, error = Exception("500 Internal Server Error"))
+            PopularTVShowsFeedViewState(
+                status = Status.ERROR,
+                error = Exception("500 Internal Server Error")
+            )
 
         // When
         val actualResult = givenViewState.getErrorMessage()
@@ -65,7 +70,10 @@ class PopularTVShowsFeedViewStateTest {
 
         // Given
         val givenViewState =
-            PopularTVShowsFeedViewState(status = Status.ERROR, error = Exception("500 Internal Server Error"))
+            PopularTVShowsFeedViewState(
+                status = Status.ERROR,
+                error = Exception("500 Internal Server Error")
+            )
 
         // When
         val actualResult = givenViewState.shouldShowErrorMessage()

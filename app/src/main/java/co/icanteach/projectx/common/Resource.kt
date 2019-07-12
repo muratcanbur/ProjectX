@@ -5,7 +5,7 @@ import androidx.annotation.NonNull
 // references :
 // https://developer.android.com/jetpack/docs/guide#addendum
 
-class Resource<T> private constructor(val status: Status, val data: T?, val error: Throwable? = null) {
+class Resource<T> constructor(val status: Status, val data: T?, val error: Throwable? = null) {
 
     companion object {
 

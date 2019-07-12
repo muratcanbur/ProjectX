@@ -7,10 +7,12 @@ import co.icanteach.projectx.common.Resource
 import co.icanteach.projectx.common.Status
 import co.icanteach.projectx.common.ui.applyLoading
 import co.icanteach.projectx.data.feed.MoviesRepository
-import co.icanteach.projectx.data.feed.PopularTVShowsResponse
-import co.icanteach.projectx.data.feed.TvShow
-import co.icanteach.projectx.ui.PopularTVShowsFeedViewState
-import co.icanteach.projectx.ui.PopularTVShowsViewModel
+import co.icanteach.projectx.data.feed.response.PopularTVShowsResponse
+import co.icanteach.projectx.data.feed.response.PopularTVShowItemResponse
+import co.icanteach.projectx.domain.FetchPopularTvShowUseCase
+import co.icanteach.projectx.ui.populartvshows.PopularTVShowsFeedViewState
+import co.icanteach.projectx.ui.populartvshows.PopularTVShowsViewModel
+import co.icanteach.projectx.ui.populartvshows.model.PopularTvShowItem
 import com.google.common.truth.Truth
 import com.nhaarman.mockitokotlin2.argumentCaptor
 import com.nhaarman.mockitokotlin2.atLeastOnce
@@ -28,7 +30,7 @@ import java.lang.Exception
 class PopularTVShowsViewModelTest {
 
     @MockK
-    lateinit var moviesRepository: MoviesRepository
+    lateinit var fetchPopularTvShowUseCase: FetchPopularTvShowUseCase
 
     @Rule
     @JvmField
@@ -43,7 +45,7 @@ class PopularTVShowsViewModelTest {
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-        popularTVShowsViewModel = PopularTVShowsViewModel(moviesRepository)
+        popularTVShowsViewModel = PopularTVShowsViewModel(fetchPopularTvShowUseCase)
     }
 
     @Test
@@ -54,7 +56,7 @@ class PopularTVShowsViewModelTest {
         popularTVShowsViewModel.getPopularTvShowsLiveData()
             .observeForever(mockedObserver)
 
-        every { moviesRepository.fetchMovies(any()) } returns
+        every { fetchPopularTvShowUseCase.fetchMovies(any()) } returns
                 Observable.just(Resource.success(createPopularTVShows()))
                     .compose(applyLoading())
 
@@ -75,7 +77,7 @@ class PopularTVShowsViewModelTest {
         popularTVShowsViewModel.getPopularTvShowsLiveData()
             .observeForever(mockedObserver)
 
-        every { moviesRepository.fetchMovies(any()) } returns
+        every { fetchPopularTvShowUseCase.fetchMovies(any()) } returns
                 Observable.just(Resource.success(createPopularTVShows()))
                     .compose(applyLoading())
 
@@ -96,8 +98,8 @@ class PopularTVShowsViewModelTest {
         popularTVShowsViewModel.getPopularTvShowsLiveData()
             .observeForever(mockedObserver)
 
-        every { moviesRepository.fetchMovies(any()) } returns
-                Observable.just(Resource.error<PopularTVShowsResponse>(Exception("unhandled exception")))
+        every { fetchPopularTvShowUseCase.fetchMovies(any()) } returns
+                Observable.just(Resource.error<List<PopularTvShowItem>>(Exception("unhandled exception")))
                     .compose(applyLoading())
 
         // When
@@ -112,15 +114,19 @@ class PopularTVShowsViewModelTest {
 
     private fun createPopularTVShowsFeedObserver(): Observer<PopularTVShowsFeedViewState> = mock { }
 
-    private fun createDummyTvShow(): TvShow {
-        return TvShow(name = "Chernobyl", imageUrl = "/hlLXt2tOPT6RRnjiUmoxyG1LTFi.jpg", rating = "8.3")
+    private fun createDummyTvShow(): PopularTvShowItem {
+        return PopularTvShowItem(
+            name = "Chernobyl",
+            imageUrl = "/hlLXt2tOPT6RRnjiUmoxyG1LTFi.jpg",
+            rating = "8.3"
+        )
     }
 
-    private fun createPopularTVShows(): PopularTVShowsResponse {
-        val popularTvShows = mutableListOf<TvShow>()
+    private fun createPopularTVShows(): List<PopularTvShowItem> {
+        val popularTvShows = mutableListOf<PopularTvShowItem>()
         for (x in 0..10) {
             popularTvShows.add(createDummyTvShow())
         }
-        return PopularTVShowsResponse(popularTvShows)
+        return popularTvShows
     }
 }

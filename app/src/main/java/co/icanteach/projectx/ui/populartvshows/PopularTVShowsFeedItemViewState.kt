@@ -1,10 +1,10 @@
-package co.icanteach.projectx.ui
+package co.icanteach.projectx.ui.populartvshows
 
 import android.content.Context
 import co.icanteach.projectx.R
-import co.icanteach.projectx.data.feed.TvShow
+import co.icanteach.projectx.ui.populartvshows.model.PopularTvShowItem
 
-class PopularTVShowsFeedItemViewState(private val tvShow: TvShow) {
+class PopularTVShowsFeedItemViewState(private val tvShow: PopularTvShowItem) {
 
     fun getImageUrl() = tvShow.imageUrl
 

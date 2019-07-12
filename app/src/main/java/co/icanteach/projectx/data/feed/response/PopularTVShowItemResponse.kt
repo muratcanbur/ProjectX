@@ -1,8 +1,8 @@
-package co.icanteach.projectx.data.feed
+package co.icanteach.projectx.data.feed.response
 
 import com.google.gson.annotations.SerializedName
 
-class TvShow(
+class PopularTVShowItemResponse(
     @SerializedName("poster_path")
     val imageUrl: String?,
     @SerializedName("name")
