@@ -12,7 +12,7 @@ class RequestInterceptor @Inject constructor() : Interceptor {
         var request = chain.request()
 
         val httpUrl = request.url().newBuilder()
-            .addQueryParameter("api_key", "5d967c7c335764f39b1efbe9c5de9760")
+            .addQueryParameter(API_KEY_QUERY, API_KEY_VALUE)
             .build()
 
         request = request.newBuilder().url(httpUrl).build()
@@ -20,4 +20,8 @@ class RequestInterceptor @Inject constructor() : Interceptor {
         return chain.proceed(request)
     }
 
+    companion object {
+        const val API_KEY_QUERY = "api_key"
+        const val API_KEY_VALUE = "5d967c7c335764f39b1efbe9c5de9760"
+    }
 }
