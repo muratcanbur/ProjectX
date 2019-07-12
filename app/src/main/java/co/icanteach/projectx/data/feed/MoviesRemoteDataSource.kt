@@ -5,10 +5,6 @@ import javax.inject.Inject
 
 class MoviesRemoteDataSource @Inject constructor(private val restInterface: InterviewRestInterface) {
 
-    fun fetchMovies(page: Int) = restInterface
-        .fetchMovies(API_KEY, page)
+    fun fetchMovies(page: Int) = restInterface.fetchMovies(page)
 
-    companion object {
-        const val API_KEY = "5d967c7c335764f39b1efbe9c5de9760"
-    }
 }
