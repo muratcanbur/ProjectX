@@ -68,6 +68,8 @@ class PopularTVShowsViewModelTest {
             verify(mockedObserver, atLeastOnce()).onChanged(capture())
             Truth.assertThat(firstValue.status).isEqualTo(Status.LOADING)
         }
+
+        io.mockk.verify { fetchPopularTvShowUseCase.fetchMovies(any()) }
     }
 
     @Test
@@ -89,6 +91,8 @@ class PopularTVShowsViewModelTest {
             verify(mockedObserver, atLeastOnce()).onChanged(capture())
             Truth.assertThat(secondValue.status).isEqualTo(Status.SUCCESS)
         }
+
+        io.mockk.verify { fetchPopularTvShowUseCase.fetchMovies(any()) }
     }
 
     @Test
@@ -110,6 +114,8 @@ class PopularTVShowsViewModelTest {
             verify(mockedObserver, atLeastOnce()).onChanged(capture())
             Truth.assertThat(secondValue.status).isEqualTo(Status.ERROR)
         }
+
+        io.mockk.verify { fetchPopularTvShowUseCase.fetchMovies(any()) }
     }
 
     private fun createPopularTVShowsFeedObserver(): Observer<PopularTVShowsFeedViewState> = mock { }

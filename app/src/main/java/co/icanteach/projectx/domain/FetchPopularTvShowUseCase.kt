@@ -6,7 +6,10 @@ import co.icanteach.projectx.ui.populartvshows.model.PopularTvShowItem
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class FetchPopularTvShowUseCase @Inject constructor(val repository: MoviesRepository, val mapper: PopularTvShowMapper) {
+class FetchPopularTvShowUseCase @Inject constructor(
+    private val repository: MoviesRepository,
+    private val mapper: PopularTvShowMapper
+) {
 
     fun fetchMovies(page: Int): Observable<Resource<List<PopularTvShowItem>>> {
         return repository
