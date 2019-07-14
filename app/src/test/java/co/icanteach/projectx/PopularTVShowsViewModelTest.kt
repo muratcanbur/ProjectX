@@ -4,11 +4,6 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import co.icanteach.RxImmediateSchedulerRule
 import co.icanteach.projectx.common.Resource
-import co.icanteach.projectx.common.Status
-import co.icanteach.projectx.common.ui.applyLoading
-import co.icanteach.projectx.data.feed.MoviesRepository
-import co.icanteach.projectx.data.feed.response.PopularTVShowsResponse
-import co.icanteach.projectx.data.feed.response.PopularTVShowItemResponse
 import co.icanteach.projectx.domain.FetchPopularTvShowUseCase
 import co.icanteach.projectx.ui.populartvshows.PopularTVShowsFeedViewState
 import co.icanteach.projectx.ui.populartvshows.PopularTVShowsViewModel
@@ -25,7 +20,6 @@ import io.reactivex.Observable
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.lang.Exception
 
 class PopularTVShowsViewModelTest {
 
@@ -57,8 +51,8 @@ class PopularTVShowsViewModelTest {
             .observeForever(mockedObserver)
 
         every { fetchPopularTvShowUseCase.fetchMovies(any()) } returns
-                Observable.just(Resource.success(createPopularTVShows()))
-                    .compose(applyLoading())
+                Observable.just<Resource<List<PopularTvShowItem>>>(Resource.Success(createPopularTVShows()))
+                    .startWith(Resource.Loading())
 
         // When
         popularTVShowsViewModel.fetchMovies(1)
@@ -66,7 +60,7 @@ class PopularTVShowsViewModelTest {
         // Then
         argumentCaptor<PopularTVShowsFeedViewState> {
             verify(mockedObserver, atLeastOnce()).onChanged(capture())
-            Truth.assertThat(firstValue.status).isEqualTo(Status.LOADING)
+            Truth.assertThat(firstValue.resource is Resource.Loading).isTrue()
         }
 
         io.mockk.verify { fetchPopularTvShowUseCase.fetchMovies(any()) }
@@ -80,8 +74,8 @@ class PopularTVShowsViewModelTest {
             .observeForever(mockedObserver)
 
         every { fetchPopularTvShowUseCase.fetchMovies(any()) } returns
-                Observable.just(Resource.success(createPopularTVShows()))
-                    .compose(applyLoading())
+                Observable.just<Resource<List<PopularTvShowItem>>>(Resource.Success(createPopularTVShows()))
+                    .startWith(Resource.Loading())
 
         // When
         popularTVShowsViewModel.fetchMovies(1)
@@ -89,7 +83,7 @@ class PopularTVShowsViewModelTest {
         // Then
         argumentCaptor<PopularTVShowsFeedViewState> {
             verify(mockedObserver, atLeastOnce()).onChanged(capture())
-            Truth.assertThat(secondValue.status).isEqualTo(Status.SUCCESS)
+            Truth.assertThat(secondValue.resource is Resource.Success).isTrue()
         }
 
         io.mockk.verify { fetchPopularTvShowUseCase.fetchMovies(any()) }
@@ -103,8 +97,8 @@ class PopularTVShowsViewModelTest {
             .observeForever(mockedObserver)
 
         every { fetchPopularTvShowUseCase.fetchMovies(any()) } returns
-                Observable.just(Resource.error<List<PopularTvShowItem>>(Exception("unhandled exception")))
-                    .compose(applyLoading())
+                Observable.just<Resource<List<PopularTvShowItem>>>(Resource.Error(Exception("unhandled exception")))
+                    .startWith(Resource.Loading())
 
         // When
         popularTVShowsViewModel.fetchMovies(1)
@@ -112,7 +106,7 @@ class PopularTVShowsViewModelTest {
         // Then
         argumentCaptor<PopularTVShowsFeedViewState> {
             verify(mockedObserver, atLeastOnce()).onChanged(capture())
-            Truth.assertThat(secondValue.status).isEqualTo(Status.ERROR)
+            Truth.assertThat(secondValue.resource is Resource.Error).isTrue()
         }
 
         io.mockk.verify { fetchPopularTvShowUseCase.fetchMovies(any()) }

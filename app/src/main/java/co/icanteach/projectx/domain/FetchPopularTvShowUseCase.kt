@@ -15,11 +15,7 @@ class FetchPopularTvShowUseCase @Inject constructor(
         return repository
             .fetchMovies(page)
             .map { resource ->
-                Resource(
-                    status = resource.status,
-                    data = resource.data?.let { mapper.mapFrom(it) },
-                    error = resource.error
-                )
+                resource.map { mapper.mapFrom(it) }
             }
     }
 }

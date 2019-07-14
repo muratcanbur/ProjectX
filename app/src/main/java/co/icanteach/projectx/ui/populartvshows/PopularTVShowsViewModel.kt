@@ -5,8 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import co.icanteach.projectx.common.Resource
 import co.icanteach.projectx.common.RxAwareViewModel
 import co.icanteach.projectx.common.ui.plusAssign
-import co.icanteach.projectx.data.feed.MoviesRepository
-import co.icanteach.projectx.data.feed.response.PopularTVShowsResponse
 import co.icanteach.projectx.domain.FetchPopularTvShowUseCase
 import co.icanteach.projectx.ui.populartvshows.model.PopularTvShowItem
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -23,17 +21,13 @@ class PopularTVShowsViewModel @Inject constructor(private val fetchPopularTvShow
         fetchPopularTvShowUseCase
             .fetchMovies(page)
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(this::onMoviesResultReady)
+            .subscribe(::onMoviesResultReady)
             .also {
                 disposable += it
             }
     }
 
     private fun onMoviesResultReady(resource: Resource<List<PopularTvShowItem>>) {
-        popularTvShowsLiveData.value = PopularTVShowsFeedViewState(
-            status = resource.status,
-            error = resource.error,
-            data = resource.data
-        )
+        popularTvShowsLiveData.value = PopularTVShowsFeedViewState(resource)
     }
 }

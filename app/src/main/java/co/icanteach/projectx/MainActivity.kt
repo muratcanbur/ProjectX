@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
             viewState = feedViewState
             executePendingBindings()
         }
-        tvShowsFeedAdapter.setTvShows(feedViewState.getPopularTvShows())
+        tvShowsFeedAdapter.setTvShows(feedViewState.popularTvShows)
     }
 
     private fun fetchMovies(page: Int) {

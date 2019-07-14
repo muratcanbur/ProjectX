@@ -1,22 +1,24 @@
 package co.icanteach.projectx.common
 
-import androidx.annotation.NonNull
+sealed class Resource<T> {
+    class Success<T>(val data: T) : Resource<T>()
+    class Error<T>(val exception: Exception) : Resource<T>()
+    class Loading<T> : Resource<T>()
 
-// references :
-// https://developer.android.com/jetpack/docs/guide#addendum
-
-class Resource<T> constructor(val status: Status, val data: T?, val error: Throwable? = null) {
-
-    companion object {
-
-        fun <T> success(@NonNull data: T): Resource<T> {
-            return Resource(Status.SUCCESS, data)
+    fun <T2> map(transform: (T) -> T2): Resource<T2> {
+        return when (this) {
+            is Success -> Success(transform(data))
+            is Error -> Error(exception)
+            is Loading -> Loading()
         }
+    }
 
-        fun <T> error(throwable: Throwable): Resource<T> {
-            return Resource(status = Status.ERROR, data = null, error = throwable)
+    fun <T2, Z> zipWith(anotherResource: Resource<T2>, transform: (T, T2) -> Z): Resource<Z> {
+        return when {
+            this is Success && anotherResource is Success -> Success(transform(data, anotherResource.data))
+            this is Error -> Error(exception)
+            anotherResource is Error -> Error(anotherResource.exception)
+            else -> Loading()
         }
-
-        fun <T> loading(): Resource<T> = Resource(Status.LOADING, null)
     }
 }

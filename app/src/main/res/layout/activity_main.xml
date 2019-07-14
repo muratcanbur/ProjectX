@@ -19,7 +19,7 @@
                   android:layout_height="wrap_content"
                   android:layout_centerInParent="true"
                   android:text="@{viewState.errorMessage}"
-                  app:visibleIf="@{viewState.shouldShowErrorMessage}"/>
+                  app:visibleIf="@{viewState.showErrorMessage}"/>
 
         <ProgressBar
                 style="@style/Widget.AppCompat.ProgressBar.Horizontal"
@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:indeterminate="true"
                 android:theme="@style/LinearProgress"
-                app:visibleIf="@{viewState.isLoading}"/>
+                app:visibleIf="@{viewState.loading}"/>
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"

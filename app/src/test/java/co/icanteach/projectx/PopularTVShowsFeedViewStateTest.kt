@@ -1,6 +1,6 @@
 package co.icanteach.projectx
 
-import co.icanteach.projectx.common.Status
+import co.icanteach.projectx.common.Resource
 import co.icanteach.projectx.ui.populartvshows.PopularTVShowsFeedViewState
 import com.google.common.truth.Truth
 import org.junit.Test
@@ -12,37 +12,37 @@ class PopularTVShowsFeedViewStateTest {
 
         // Given
         val givenViewState =
-            PopularTVShowsFeedViewState(status = Status.LOADING)
+            PopularTVShowsFeedViewState(Resource.Loading())
 
         // When
-        val actualResult = givenViewState.isLoading()
+        val actualResult = givenViewState.loading
 
         // Then
         Truth.assertThat(actualResult).isTrue()
     }
 
     @Test
-    fun `should not return loading false when status is error`() {
+    fun `should not return loading false when status is success`() {
 
         // Given
         val givenViewState =
-            PopularTVShowsFeedViewState(status = Status.SUCCESS)
+            PopularTVShowsFeedViewState(Resource.Success(emptyList()))
 
         // When
-        val actualResult = givenViewState.isLoading()
+        val actualResult = givenViewState.loading
 
         // Then
         Truth.assertThat(actualResult).isFalse()
     }
 
     @Test
-    fun `should not return loading false when status is success`() {
+    fun `should not return loading false when status is error`() {
 
         // Given
-        val givenViewState = PopularTVShowsFeedViewState(status = Status.ERROR)
+        val givenViewState = PopularTVShowsFeedViewState(Resource.Error(Exception("500 Internal Server Error")))
 
         // When
-        val actualResult = givenViewState.isLoading()
+        val actualResult = givenViewState.loading
 
         // Then
         Truth.assertThat(actualResult).isFalse()
@@ -53,13 +53,10 @@ class PopularTVShowsFeedViewStateTest {
 
         // Given
         val givenViewState =
-            PopularTVShowsFeedViewState(
-                status = Status.ERROR,
-                error = Exception("500 Internal Server Error")
-            )
+            PopularTVShowsFeedViewState(Resource.Error(Exception("500 Internal Server Error")))
 
         // When
-        val actualResult = givenViewState.getErrorMessage()
+        val actualResult = givenViewState.errorMessage
 
         // Then
         Truth.assertThat(actualResult).isEqualTo("500 Internal Server Error")
@@ -70,13 +67,10 @@ class PopularTVShowsFeedViewStateTest {
 
         // Given
         val givenViewState =
-            PopularTVShowsFeedViewState(
-                status = Status.ERROR,
-                error = Exception("500 Internal Server Error")
-            )
+            PopularTVShowsFeedViewState(Resource.Error(Exception("500 Internal Server Error")))
 
         // When
-        val actualResult = givenViewState.shouldShowErrorMessage()
+        val actualResult = givenViewState.showErrorMessage
 
         // Then
         Truth.assertThat(actualResult).isTrue()

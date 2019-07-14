@@ -1,19 +1,14 @@
 package co.icanteach.projectx.ui.populartvshows
 
-import co.icanteach.projectx.common.Status
-import co.icanteach.projectx.data.feed.response.PopularTVShowsResponse
+import co.icanteach.projectx.common.Resource
+import co.icanteach.projectx.common.ui.EMPTY
 import co.icanteach.projectx.ui.populartvshows.model.PopularTvShowItem
 
 class PopularTVShowsFeedViewState(
-    val status: Status,
-    val error: Throwable? = null,
-    val data: List<PopularTvShowItem>? = null
+    val resource: Resource<List<PopularTvShowItem>>
 ) {
-    fun getPopularTvShows() = data ?: mutableListOf()
-
-    fun isLoading() = status == Status.LOADING
-
-    fun getErrorMessage() = error?.message
-
-    fun shouldShowErrorMessage() = error != null
+    val popularTvShows = if (resource is Resource.Success) resource.data else emptyList()
+    val loading = resource is Resource.Loading
+    val errorMessage = if (resource is Error) resource.message else String.EMPTY
+    val showErrorMessage = resource is Resource.Error
 }
