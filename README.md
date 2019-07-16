@@ -41,5 +41,4 @@ ViewStates are responsible for reporting changes to the UI.
 
 ## TODO for near future
 - [ ] improve application UI
-- [ ] fix problem about ViewModels are being reloaded on config changes
 - [ ] implement local storage example
