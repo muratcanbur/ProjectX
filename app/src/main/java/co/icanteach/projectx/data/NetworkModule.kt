@@ -19,10 +19,14 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
-        val okHttpBuilder = OkHttpClient.Builder()
-        okHttpBuilder.addInterceptor(loggingInterceptor)
-        return okHttpBuilder.build()
+    fun provideOkHttpClient(
+        loggingInterceptor: HttpLoggingInterceptor,
+        requestInterceptor: RequestInterceptor
+    ): OkHttpClient {
+        return OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .addInterceptor(requestInterceptor)
+            .build()
     }
 
     @Provides
