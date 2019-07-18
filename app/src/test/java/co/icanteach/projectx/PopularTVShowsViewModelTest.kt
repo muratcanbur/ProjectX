@@ -124,7 +124,7 @@ class PopularTVShowsViewModelTest {
         return PopularTvShowItem(
             name = "Chernobyl",
             imageUrl = "/hlLXt2tOPT6RRnjiUmoxyG1LTFi.jpg",
-            rating = "8.3"
+            overview = "An unassuming mystery writer turned sleuth uses her professional insight to help solve real-life homicide cases."
         )
     }
 
