@@ -12,7 +12,7 @@ class PopularTvShowMapper @Inject constructor() : Mapper<PopularTVShowsResponse,
             PopularTvShowItem(
                 imageUrl = itemResponse.imageUrl,
                 name = itemResponse.name,
-                rating = itemResponse.rating
+                overview = itemResponse.overview
             )
         }
     }

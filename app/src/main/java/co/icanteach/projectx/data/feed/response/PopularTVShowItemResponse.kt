@@ -7,6 +7,6 @@ class PopularTVShowItemResponse(
     val imageUrl: String?,
     @SerializedName("name")
     val name: String?,
-    @SerializedName("vote_average")
-    val rating: String?
+    @SerializedName("overview")
+    val overview: String?
 )

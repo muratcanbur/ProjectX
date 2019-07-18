@@ -48,6 +48,9 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     kapt "androidx.lifecycle:lifecycle-compiler:${libraries.lifecycleVersion}"
 
+    implementation "com.google.android.material:material:${libraries.materialVersion}"
+
+
     // Retrofit & Gson.
     implementation "com.squareup.retrofit2:retrofit:${libraries.retrofitVersion}"
     implementation "com.squareup.retrofit2:converter-gson:${libraries.retrofitVersion}"
@@ -56,7 +59,6 @@ dependencies {
 
     // support
     implementation "androidx.recyclerview:recyclerview:${libraries.recyclerViewVersion}"
-    implementation "androidx.cardview:cardview:${libraries.cardViewVersion}"
 
     //rxjava
     implementation "io.reactivex.rxjava2:rxandroid:${libraries.rxAndroidVersion}"

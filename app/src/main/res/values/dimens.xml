@@ -2,4 +2,5 @@
 <resources>
 
     <dimen name="padding_8">8dp</dimen>
+    <dimen name="movies_card_spacing">8dp</dimen>
 </resources>

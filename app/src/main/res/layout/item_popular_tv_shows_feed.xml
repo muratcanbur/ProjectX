@@ -12,46 +12,59 @@
     </data>
 
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/white">
+            android:background="@android:color/white"
+            android:layout_marginLeft="@dimen/movies_card_spacing"
+            android:layout_marginTop="@dimen/movies_card_spacing"
+            android:layout_marginRight="@dimen/movies_card_spacing"
+            android:minHeight="200dp">
 
-        <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:scaleType="centerCrop"
-                app:imageUrl="@{viewState.imageUrl}"/>
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                      android:orientation="horizontal">
 
-        <LinearLayout
-                android:padding="@dimen/padding_8"
-                android:background="@android:color/darker_gray"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:orientation="vertical">
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_weight="2"
+                    android:layout_width="0dp"
+                    android:layout_height="200dp"
+                    android:scaleType="centerCrop"
+                    app:imageUrl="@{viewState.imageUrl}"/>
 
-            <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvSingleBannerSubTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif"
-                    android:text="@{viewState.tvShowName}"
-                    android:textColor="@android:color/white"
-                    android:textStyle="bold"
-                    tools:text="@string/app_name"/>
+            <LinearLayout
+                    android:layout_weight="4"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="bottom"
+                    android:orientation="vertical">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvSingleBannerTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif"
-                    android:text="@{viewState.getTvShowRating(context)}"
-                    android:textColor="@android:color/white"
-                    android:textStyle="bold"
-                    tools:text="@string/app_name"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:padding="@dimen/padding_8"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
+                        android:text="@{viewState.tvShowName}"
+                        android:textColor="@android:color/holo_purple"
+                        android:textStyle="bold"
+                        style="@style/TextAppearance.MaterialComponents.Body1"
+                        tools:text="@string/app_name"/>
 
+
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:padding="@dimen/padding_8"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
+                        android:text="@{viewState.tvShowOverview}"
+                        android:textColor="@android:color/darker_gray"
+                        android:textStyle="bold"
+                        style="@style/TextAppearance.MaterialComponents.Caption"
+                        tools:text="@string/app_name"/>
+
+            </LinearLayout>
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+
+    </com.google.android.material.card.MaterialCardView>
 </layout>

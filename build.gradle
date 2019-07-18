@@ -31,7 +31,8 @@ buildscript {
                 mockitoVersion           : '2.23.0',
                 mockitoKotlinVersion     : "2.1.0",
                 orchestratorVersion      : "1.1.1",
-                coreTestingVersion       : '2.0.0'
+                coreTestingVersion       : '2.0.0',
+                materialVersion          : "1.1.0-alpha06"
         ]
 
         versionMajor = 1
