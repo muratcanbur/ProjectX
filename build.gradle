@@ -1,32 +1,31 @@
 buildscript {
-    ext.kotlin_version = '1.3.31'
-    ext.kotlin_version = '1.3.21'
+    ext.kotlin_version = '1.3.41'
 
     ext {
         configuration = [
                 package          : "co.icanteach.projectx",
-                compileSdkVersion: 28,
+                compileSdkVersion: 29,
                 minSdkVersion    : 19,
-                targetSdkVersion : 28
+                targetSdkVersion : 29
         ]
 
         libraries = [
-                appcompatVersion         : "1.0.2",
+                appcompatVersion         : '1.1.0-rc01',
                 ktxCoreVersion           : "1.0.1",
-                junitVersion             : "4.12",
-                androidxTestRunnerVersion: "1.1.1",
-                espressoCoreVersion      : "3.1.1",
-                daggerVersion            : "2.13",
-                lifecycleVersion         : "2.0.0",
-                retrofitVersion          : "2.3.0",
-                okhttpVersion            : "3.9.0",
-                recyclerViewVersion      : "1.0.0",
+                junitVersion             : '4.13-beta-3',
+                androidxTestRunnerVersion: '1.3.0-alpha01',
+                espressoCoreVersion      : '3.3.0-alpha01',
+                daggerVersion            : '2.23.2',
+                lifecycleVersion         : '2.2.0-alpha02',
+                retrofitVersion          : '2.6.0',
+                okhttpVersion            : '4.0.1',
+                recyclerViewVersion      : '1.1.0-beta01',
                 cardViewVersion          : "1.0.0",
-                rxAndroidVersion         : '2.1.0',
+                rxAndroidVersion         : '2.1.1',
                 rxJavaVersion            : '2.2.3',
                 glideVersion             : '4.9.0',
-                truthVersion             : '0.42',
-                truthExtVersion          : '1.0.0',
+                truthVersion             : '1.0',
+                truthExtVersion          : '1.3.0-alpha01',
                 mockKVersion             : '1.9.3',
                 mockitoVersion           : '2.23.0',
                 mockitoKotlinVersion     : "2.1.0",
@@ -47,7 +46,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.1'
+        classpath 'com.android.tools.build:gradle:3.4.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         // NOTE: Do not place your application dependencies here; they belong
