@@ -75,7 +75,6 @@ dependencies {
     testImplementation "androidx.test.ext:truth:${libraries.truthExtVersion}"
     testImplementation "com.google.truth:truth:${libraries.truthVersion}"
     testImplementation "io.mockk:mockk:${libraries.mockKVersion}"
-    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:${libraries.mockitoKotlinVersion}"
     testImplementation "androidx.arch.core:core-testing:${libraries.coreTestingVersion}"
 
 }

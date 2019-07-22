@@ -6,26 +6,20 @@ import co.icanteach.RxImmediateSchedulerRule
 import co.icanteach.projectx.common.Resource
 import co.icanteach.projectx.common.Status
 import co.icanteach.projectx.common.ui.applyLoading
-import co.icanteach.projectx.data.feed.MoviesRepository
-import co.icanteach.projectx.data.feed.response.PopularTVShowsResponse
-import co.icanteach.projectx.data.feed.response.PopularTVShowItemResponse
 import co.icanteach.projectx.domain.FetchPopularTvShowUseCase
 import co.icanteach.projectx.ui.populartvshows.PopularTVShowsFeedViewState
 import co.icanteach.projectx.ui.populartvshows.PopularTVShowsViewModel
 import co.icanteach.projectx.ui.populartvshows.model.PopularTvShowItem
 import com.google.common.truth.Truth
-import com.nhaarman.mockitokotlin2.argumentCaptor
-import com.nhaarman.mockitokotlin2.atLeastOnce
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.verify
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
+import io.mockk.spyk
+import io.mockk.verify
 import io.reactivex.Observable
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.lang.Exception
 
 class PopularTVShowsViewModelTest {
 
@@ -64,12 +58,13 @@ class PopularTVShowsViewModelTest {
         popularTVShowsViewModel.fetchMovies(1)
 
         // Then
-        argumentCaptor<PopularTVShowsFeedViewState> {
-            verify(mockedObserver, atLeastOnce()).onChanged(capture())
-            Truth.assertThat(firstValue.status).isEqualTo(Status.LOADING)
-        }
+        val popularTVShowsFeedViewStateSlots = mutableListOf<PopularTVShowsFeedViewState>()
+        verify(exactly = 2) { mockedObserver.onChanged(capture(popularTVShowsFeedViewStateSlots)) }
 
-        io.mockk.verify { fetchPopularTvShowUseCase.fetchMovies(any()) }
+        val errorState = popularTVShowsFeedViewStateSlots[0]
+        Truth.assertThat(errorState.status).isEqualTo(Status.LOADING)
+
+        verify { fetchPopularTvShowUseCase.fetchMovies(any()) }
     }
 
     @Test
@@ -87,12 +82,13 @@ class PopularTVShowsViewModelTest {
         popularTVShowsViewModel.fetchMovies(1)
 
         // Then
-        argumentCaptor<PopularTVShowsFeedViewState> {
-            verify(mockedObserver, atLeastOnce()).onChanged(capture())
-            Truth.assertThat(secondValue.status).isEqualTo(Status.SUCCESS)
-        }
+        val popularTVShowsFeedViewStateSlots = mutableListOf<PopularTVShowsFeedViewState>()
+        verify(exactly = 2) { mockedObserver.onChanged(capture(popularTVShowsFeedViewStateSlots)) }
 
-        io.mockk.verify { fetchPopularTvShowUseCase.fetchMovies(any()) }
+        val errorState = popularTVShowsFeedViewStateSlots[1]
+        Truth.assertThat(errorState.status).isEqualTo(Status.SUCCESS)
+
+        verify { fetchPopularTvShowUseCase.fetchMovies(any()) }
     }
 
     @Test
@@ -110,15 +106,16 @@ class PopularTVShowsViewModelTest {
         popularTVShowsViewModel.fetchMovies(1)
 
         // Then
-        argumentCaptor<PopularTVShowsFeedViewState> {
-            verify(mockedObserver, atLeastOnce()).onChanged(capture())
-            Truth.assertThat(secondValue.status).isEqualTo(Status.ERROR)
-        }
+        val popularTVShowsFeedViewStateSlots = mutableListOf<PopularTVShowsFeedViewState>()
+        verify(exactly = 2) { mockedObserver.onChanged(capture(popularTVShowsFeedViewStateSlots)) }
 
-        io.mockk.verify { fetchPopularTvShowUseCase.fetchMovies(any()) }
+        val errorState = popularTVShowsFeedViewStateSlots[1]
+        Truth.assertThat(errorState.status).isEqualTo(Status.ERROR)
+
+        verify { fetchPopularTvShowUseCase.fetchMovies(any()) }
     }
 
-    private fun createPopularTVShowsFeedObserver(): Observer<PopularTVShowsFeedViewState> = mock { }
+    private fun createPopularTVShowsFeedObserver(): Observer<PopularTVShowsFeedViewState> = spyk(Observer { })
 
     private fun createDummyTvShow(): PopularTvShowItem {
         return PopularTvShowItem(
