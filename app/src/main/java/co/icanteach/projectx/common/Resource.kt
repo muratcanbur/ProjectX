@@ -5,7 +5,7 @@ import androidx.annotation.NonNull
 // references :
 // https://developer.android.com/jetpack/docs/guide#addendum
 
-class Resource<T> constructor(val status: Status, val data: T?, val error: Throwable? = null) {
+class Resource<out T> constructor(val status: Status, val data: T?, val error: Throwable? = null) {
 
     companion object {
 
@@ -19,4 +19,14 @@ class Resource<T> constructor(val status: Status, val data: T?, val error: Throw
 
         fun <T> loading(): Resource<T> = Resource(Status.LOADING, null)
     }
+}
+
+suspend fun <T> runCatching(block: suspend () -> Resource<T>) = try {
+    block()
+} catch (e: Exception) {
+    Resource(
+        status = Status.ERROR,
+        data = null,
+        error = e
+    )
 }

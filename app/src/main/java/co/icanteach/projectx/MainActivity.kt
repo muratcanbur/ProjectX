@@ -37,9 +37,9 @@ class MainActivity : AppCompatActivity() {
         moviesViewModel =
             ViewModelProviders.of(this, viewModelProviderFactory).get(PopularTVShowsViewModel::class.java)
 
-        moviesViewModel.getPopularTvShowsLiveData().observeNonNull(this) {
+        moviesViewModel.getPopularTvShowsLiveData.observeNonNull(this, {
             renderPopularTVShows(it)
-        }
+        })
 
         savedInstanceState.runIfNull {
             fetchMovies(FIRST_PAGE)

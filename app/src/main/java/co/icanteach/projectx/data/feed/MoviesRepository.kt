@@ -1,20 +1,23 @@
 package co.icanteach.projectx.data.feed
 
 import co.icanteach.projectx.common.Resource
-import co.icanteach.projectx.common.ui.applyLoading
-import co.icanteach.projectx.data.feed.response.PopularTVShowsResponse
-import io.reactivex.Observable
-import io.reactivex.schedulers.Schedulers
+import co.icanteach.projectx.common.Status
+import co.icanteach.projectx.util.CoroutinesDispatcherProvider
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
-class MoviesRepository @Inject constructor(private val moviesRemoteDataSource: MoviesRemoteDataSource) {
-
-    fun fetchMovies(page: Int): Observable<Resource<PopularTVShowsResponse>> =
-        moviesRemoteDataSource
-            .fetchMovies(page)
-            .map { Resource.success(it) }
-            .onErrorReturn { Resource.error(it) }
-            .subscribeOn(Schedulers.io())
-            .compose(applyLoading())
+class MoviesRepository @Inject constructor(
+    private val coroutinesDispatcherProvider: CoroutinesDispatcherProvider,
+    private val moviesRemoteDataSource: MoviesRemoteDataSource
+) {
+    suspend fun fetchMovies(page: Int) = withContext(coroutinesDispatcherProvider.default) {
+        co.icanteach.projectx.common.runCatching {
+            Resource(
+                status = Status.SUCCESS,
+                data = moviesRemoteDataSource.fetchMovies(page),
+                error = null
+            )
+        }
+    }
 }

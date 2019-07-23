@@ -77,4 +77,8 @@ dependencies {
     testImplementation "io.mockk:mockk:${libraries.mockKVersion}"
     testImplementation "androidx.arch.core:core-testing:${libraries.coreTestingVersion}"
 
+    // Coroutines
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${libraries.coroutinesTestCoreVersion}")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${libraries.coroutinesTestCoreVersion}")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:${libraries.coroutinesTestVersion}")
 }

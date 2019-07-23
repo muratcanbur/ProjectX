@@ -29,7 +29,9 @@ buildscript {
                 mockKVersion             : '1.9.3',
                 orchestratorVersion      : "1.1.1",
                 coreTestingVersion       : '2.0.0',
-                materialVersion          : "1.1.0-alpha06"
+                materialVersion          : "1.1.0-alpha06",
+                coroutinesTestVersion    : "1.3.0-M2",
+                coroutinesTestCoreVersion: "1.2.2"
         ]
 
         versionMajor = 1
