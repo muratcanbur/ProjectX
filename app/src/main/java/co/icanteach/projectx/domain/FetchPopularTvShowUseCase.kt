@@ -2,6 +2,7 @@ package co.icanteach.projectx.domain
 
 import co.icanteach.projectx.common.Resource
 import co.icanteach.projectx.common.Status
+import co.icanteach.projectx.common.runWithCatching
 import co.icanteach.projectx.data.feed.MoviesRepository
 import co.icanteach.projectx.util.CoroutinesDispatcherProvider
 import kotlinx.coroutines.withContext
@@ -13,16 +14,15 @@ class FetchPopularTvShowUseCase @Inject constructor(
     private val coroutinesDispatcherProvider: CoroutinesDispatcherProvider
 ) {
 
-    suspend fun fetchMovies(page: Int) =
-        withContext(coroutinesDispatcherProvider.default) {
-            co.icanteach.projectx.common.runCatching {
-                Resource(
-                    status = Status.SUCCESS,
-                    data = repository
-                        .fetchMovies(page)
-                        .data?.let { mapper.mapFrom(it) },
-                    error = null
-                )
-            }
+    suspend fun fetchMovies(page: Int) = withContext(coroutinesDispatcherProvider.default) {
+        runWithCatching {
+            Resource(
+                status = Status.SUCCESS,
+                data = repository
+                    .fetchMovies(page)
+                    .data?.let { mapper.mapFrom(it) },
+                error = null
+            )
         }
+    }
 }

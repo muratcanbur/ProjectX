@@ -21,7 +21,7 @@ class Resource<out T> constructor(val status: Status, val data: T?, val error: T
     }
 }
 
-suspend fun <T> runCatching(block: suspend () -> Resource<T>) = try {
+suspend fun <T> runWithCatching(block: suspend () -> Resource<T>) = try {
     block()
 } catch (e: Exception) {
     Resource(
