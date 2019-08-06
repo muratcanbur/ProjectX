@@ -39,6 +39,10 @@ ViewStates are responsible for reporting changes to the UI.
 * [PopularTVShowsFeedItemViewStateTest](https://github.com/muratcanbur/ProjectX/blob/master/app/src/test/java/co/icanteach/projectx/PopularTVShowsFeedItemViewStateTest.kt)
 * [PopularTVShowsFeedViewStateTest](https://github.com/muratcanbur/ProjectX/blob/master/app/src/test/java/co/icanteach/projectx/PopularTVShowsFeedViewStateTest.kt)
 
+## Blog posts about project
+* [A Sample Project for your Android Interview Assignment](https://medium.com/@muratcanbur/a-sample-project-for-your-android-interview-assignment-324783e0160f)
+
+
 ## TODO for near future
 - [ ] implement local storage example
 - [ ] implement coroutines example
