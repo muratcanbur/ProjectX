@@ -43,7 +43,7 @@ class PopularTVShowsViewModelTest {
     }
 
     @Test
-    fun `should show loading state first when loading popular tv shows`() {
+    fun `given loading state, when fetchMovies called, then update live data for loading status`() {
 
         // Given
         val mockedObserver = createPopularTVShowsFeedObserver()
@@ -59,7 +59,7 @@ class PopularTVShowsViewModelTest {
 
         // Then
         val popularTVShowsFeedViewStateSlots = mutableListOf<PopularTVShowsFeedViewState>()
-        verify(exactly = 2) { mockedObserver.onChanged(capture(popularTVShowsFeedViewStateSlots)) }
+        verify { mockedObserver.onChanged(capture(popularTVShowsFeedViewStateSlots)) }
 
         val errorState = popularTVShowsFeedViewStateSlots[0]
         Truth.assertThat(errorState.status).isEqualTo(Status.LOADING)
@@ -68,7 +68,7 @@ class PopularTVShowsViewModelTest {
     }
 
     @Test
-    fun `should show success state when loading popular tv shows successfully`() {
+    fun `given success state, when fetchMovies called, then update live data for success status`() {
         // Given
         val mockedObserver = createPopularTVShowsFeedObserver()
         popularTVShowsViewModel.getPopularTvShowsLiveData()
@@ -92,7 +92,7 @@ class PopularTVShowsViewModelTest {
     }
 
     @Test
-    fun `should show error state when there is an error while loading popular tv shows`() {
+    fun `given error state, when fetchMovies called, then update live data for error status`() {
         // Given
         val mockedObserver = createPopularTVShowsFeedObserver()
         popularTVShowsViewModel.getPopularTvShowsLiveData()
