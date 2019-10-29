@@ -57,6 +57,12 @@ dependencies {
     implementation "com.squareup.retrofit2:adapter-rxjava2:${libraries.retrofitVersion}"
     implementation "com.squareup.okhttp3:logging-interceptor:${libraries.okhttpVersion}"
 
+    // Room db
+    implementation "androidx.room:room-runtime:${libraries.room_version}"
+    kapt "androidx.room:room-compiler:${libraries.room_version}"
+    implementation "androidx.room:room-ktx:${libraries.room_version}"
+    implementation "androidx.room:room-rxjava2:${libraries.room_version}"
+
     // support
     implementation "androidx.recyclerview:recyclerview:${libraries.recyclerViewVersion}"
 
