@@ -50,6 +50,12 @@ dependencies {
     implementation Dependencies.retrofitRxJavaAdapter
     implementation Dependencies.okhttp
 
+    // Room db
+    implementation "androidx.room:room-runtime:${libraries.room_version}"
+    kapt "androidx.room:room-compiler:${libraries.room_version}"
+    implementation "androidx.room:room-ktx:${libraries.room_version}"
+    implementation "androidx.room:room-rxjava2:${libraries.room_version}"
+
     // support
     implementation  Dependencies.recyclerView
 
