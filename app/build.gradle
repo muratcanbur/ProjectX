@@ -1,22 +1,19 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'kotlin-android-extensions'
-
-def configuration = rootProject.ext.configuration
-def libraries = rootProject.ext.libraries
+apply plugin: Plugins.androidApplication
+apply plugin: Plugins.kotlinAndroid
+apply plugin: Plugins.kotlinKapt
+apply plugin: Plugins.kotlinAndroidExtensions
 
 android {
-    compileSdkVersion configuration.compileSdkVersion
+    compileSdkVersion Configs.compileSdkVersion
 
     defaultConfig {
-        applicationId configuration.package
-        minSdkVersion configuration.minSdkVersion
-        targetSdkVersion configuration.targetSdkVersion
-        versionCode rootProject.ext.versionCode
-        versionName rootProject.ext.versionName
+        applicationId Configs.applicationId
+        minSdkVersion Configs.minSdkVersion
+        targetSdkVersion Configs.targetSdkVersion
+        versionCode Configs.versionCode
+        versionName Configs.versionName
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner Configs.testInstrumentationRunner
     }
 
     dataBinding {
@@ -32,49 +29,44 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "androidx.appcompat:appcompat:${libraries.appcompatVersion}"
+    implementation Dependencies.kotlin
+    implementation Dependencies.appcompat
+    implementation Dependencies.material
 
     // dagger
-    implementation "com.google.dagger:dagger:${libraries.daggerVersion}"
-    implementation "com.google.dagger:dagger-android-support:${libraries.daggerVersion}"
-    kapt "com.google.dagger:dagger-compiler:${libraries.daggerVersion}"
-    kapt "com.google.dagger:dagger-android-processor:${libraries.daggerVersion}"
+    implementation Dependencies.dagger
+    implementation Dependencies.daggerAndroid
+    kapt Dependencies.daggerCompiler
+    kapt Dependencies.daggerProcessor
 
     // ViewModel & LiveData
-    implementation "androidx.lifecycle:lifecycle-extensions:${libraries.lifecycleVersion}"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${libraries.lifecycleVersion}"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    kapt "androidx.lifecycle:lifecycle-compiler:${libraries.lifecycleVersion}"
-
-    implementation "com.google.android.material:material:${libraries.materialVersion}"
-
+    implementation Dependencies.lifecycleExtension
+    implementation Dependencies.lifecycleViewModel
+    kapt Dependencies.lifecycleCompiler
 
     // Retrofit & Gson.
-    implementation "com.squareup.retrofit2:retrofit:${libraries.retrofitVersion}"
-    implementation "com.squareup.retrofit2:converter-gson:${libraries.retrofitVersion}"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:${libraries.retrofitVersion}"
-    implementation "com.squareup.okhttp3:logging-interceptor:${libraries.okhttpVersion}"
+    implementation Dependencies.retrofit
+    implementation Dependencies.retrofitGsonConverter
+    implementation Dependencies.retrofitRxJavaAdapter
+    implementation Dependencies.okhttp
 
     // support
-    implementation "androidx.recyclerview:recyclerview:${libraries.recyclerViewVersion}"
+    implementation  Dependencies.recyclerView
 
     //rxjava
-    implementation "io.reactivex.rxjava2:rxandroid:${libraries.rxAndroidVersion}"
-    implementation "io.reactivex.rxjava2:rxjava:${libraries.rxJavaVersion}"
+    implementation  Dependencies.rxAndroid
+    implementation  Dependencies.rxJava
 
     //glide
-    implementation "com.github.bumptech.glide:glide:${libraries.glideVersion}"
-    kapt "com.github.bumptech.glide:compiler:${libraries.glideVersion}"
+    implementation  Dependencies.glide
+    kapt  Dependencies.glideCompiler
 
     // Testing
-    testImplementation "junit:junit:${libraries.junitVersion}"
-    androidTestImplementation "androidx.test:runner:${libraries.androidxTestRunnerVersion}"
-    androidTestImplementation "androidx.test.espresso:espresso-core:${libraries.espressoCoreVersion}"
-    testImplementation "androidx.test.ext:truth:${libraries.truthExtVersion}"
-    testImplementation "com.google.truth:truth:${libraries.truthVersion}"
-    testImplementation "io.mockk:mockk:${libraries.mockKVersion}"
-    testImplementation "androidx.arch.core:core-testing:${libraries.coreTestingVersion}"
-
+    testImplementation Dependencies.junit
+    androidTestImplementation  Dependencies.androidxTestRunner
+    androidTestImplementation  Dependencies.espressoCore
+    testImplementation  Dependencies.truthExt
+    testImplementation  Dependencies.truth
+    testImplementation  Dependencies.mockK
+    testImplementation  Dependencies.coreTesting
 }
