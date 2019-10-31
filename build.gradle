@@ -1,3 +1,5 @@
+apply plugin: Plugins.gradleVersionPlugin
+
 buildscript {
     repositories {
         google()
@@ -7,6 +9,7 @@ buildscript {
     dependencies {
         classpath Classpaths.gradleClasspath
         classpath Classpaths.kotlinGradleClasspath
+        classpath Classpaths.gradleVersionPlugin
     }
 }
 
@@ -20,4 +23,10 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+task {
+    dependencyUpdates {
+        checkConstraints = true
+    }
 }
