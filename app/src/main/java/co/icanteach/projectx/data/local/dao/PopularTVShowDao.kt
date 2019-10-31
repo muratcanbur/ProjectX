@@ -2,21 +2,17 @@ package co.icanteach.projectx.data.local.dao
 
 import androidx.room.*
 import co.icanteach.projectx.data.local.entity.PopularTVShowItemEntity
-import co.icanteach.projectx.data.local.entity.PopularTVShowsEntity
 import io.reactivex.Single
 
 @Dao
 interface PopularTVShowDao {
 
     @Query("SELECT * FROM popularTVShowsEntity")
-    fun getPopularTVShowsEntity(): Single<PopularTVShowsEntity>
+    fun getPopularTVShowsEntity(): Single<List<PopularTVShowItemEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(source: PopularTVShowsEntity)
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(sourceList: List<PopularTVShowItemEntity>)
+    fun insertAll(popularTVShowsEntity: List<PopularTVShowItemEntity>)
 
     @Delete
-    fun delete(sourceList: List<PopularTVShowItemEntity>)
+    fun delete(popularTVShowsEntity: List<PopularTVShowItemEntity>)
 }
