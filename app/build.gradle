@@ -56,6 +56,10 @@ dependencies {
     implementation Dependencies.roomKtx
     implementation Dependencies.roomRxJava
 
+    // Stetho
+    implementation Dependencies.stethoOkHttp
+    implementation Dependencies.stethoUrl
+
     // support
     implementation  Dependencies.recyclerView
 
