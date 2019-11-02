@@ -51,16 +51,10 @@ dependencies {
     implementation Dependencies.okhttp
 
     // Room db
-    implementation "androidx.room:room-runtime:${libraries.room_version}"
-    kapt "androidx.room:room-compiler:${libraries.room_version}"
-    implementation "androidx.room:room-ktx:${libraries.room_version}"
-    implementation "androidx.room:room-rxjava2:${libraries.room_version}"
-
-    // Room db
-    implementation "androidx.room:room-runtime:${libraries.room_version}"
-    kapt "androidx.room:room-compiler:${libraries.room_version}"
-    implementation "androidx.room:room-ktx:${libraries.room_version}"
-    implementation "androidx.room:room-rxjava2:${libraries.room_version}"
+    implementation Dependencies.roomRuntime
+    kapt Dependencies.roomCompiler
+    implementation Dependencies.roomKtx
+    implementation Dependencies.roomRxJava
 
     // support
     implementation  Dependencies.recyclerView

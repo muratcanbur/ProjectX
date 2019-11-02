@@ -28,4 +28,9 @@ object Dependencies {
     val orchestrator = "1.1.1"
     val coreTesting = "androidx.arch.core:core-testing:${Versions.coreTestingVersion}"
     val material = "com.google.android.material:material:${Versions.materialVersion}"
+    val roomRuntime = "androidx.room:room-runtime:${Versions.room_version}"
+    val roomCompiler = "androidx.room:room-compiler:${Versions.room_version}"
+    val roomKtx = "androidx.room:room-ktx:${Versions.room_version}"
+    val roomRxJava = "androidx.room:room-rxjava2:${Versions.room_version}"
+
 }
