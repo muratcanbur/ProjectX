@@ -28,9 +28,11 @@ object Dependencies {
     val orchestrator = "1.1.1"
     val coreTesting = "androidx.arch.core:core-testing:${Versions.coreTestingVersion}"
     val material = "com.google.android.material:material:${Versions.materialVersion}"
-    val roomRuntime = "androidx.room:room-runtime:${Versions.room_version}"
-    val roomCompiler = "androidx.room:room-compiler:${Versions.room_version}"
-    val roomKtx = "androidx.room:room-ktx:${Versions.room_version}"
-    val roomRxJava = "androidx.room:room-rxjava2:${Versions.room_version}"
+    val roomRuntime = "androidx.room:room-runtime:${Versions.roomVersion}"
+    val roomCompiler = "androidx.room:room-compiler:${Versions.roomVersion}"
+    val roomKtx = "androidx.room:room-ktx:${Versions.roomVersion}"
+    val roomRxJava = "androidx.room:room-rxjava2:${Versions.roomVersion}"
+    val stethoOkHttp = "com.facebook.stetho:stetho-okhttp3:${Versions.stethoOkHttpVersion}"
+    val stethoUrl = "com.facebook.stetho:stetho-urlconnection:${Versions.stethoUrlVersion}"
 
 }
