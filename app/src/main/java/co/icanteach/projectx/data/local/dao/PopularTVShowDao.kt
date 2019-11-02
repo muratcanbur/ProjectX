@@ -7,12 +7,18 @@ import io.reactivex.Single
 @Dao
 interface PopularTVShowDao {
 
-    @Query("SELECT * FROM popularTVShowsEntity")
+    @Query("SELECT * FROM PopularTVShowItemEntity")
     fun getPopularTVShowsEntity(): Single<List<PopularTVShowItemEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(popularTVShowsEntity: List<PopularTVShowItemEntity>)
 
-    @Delete
-    fun delete(popularTVShowsEntity: List<PopularTVShowItemEntity>)
+    @Query("DELETE FROM PopularTVShowItemEntity")
+    fun delete()
+
+    @Transaction
+    fun updateLatest(popularTVShowsEntity: List<PopularTVShowItemEntity>) {
+        delete()
+        insertAll(popularTVShowsEntity)
+    }
 }

@@ -2,6 +2,7 @@ package co.icanteach.projectx.domain
 
 import android.util.Log
 import co.icanteach.projectx.common.Resource
+import co.icanteach.projectx.common.Status
 import co.icanteach.projectx.data.feed.MoviesRepository
 import co.icanteach.projectx.ui.populartvshows.model.PopularTvShowItem
 import io.reactivex.Observable
@@ -13,7 +14,7 @@ class FetchPopularTvShowUseCase @Inject constructor(
 ) {
 
     fun fetchMovies(page: Int): Observable<Resource<List<PopularTvShowItem>>> {
-        return Observable.concatArrayEager(fetchMoviesFromRemote(page), fetchMoviesFromLocal())
+        return Observable.concatArray(fetchMoviesFromLocal(), fetchMoviesFromRemote(page))
     }
 
     private fun fetchMoviesFromRemote(page: Int): Observable<Resource<List<PopularTvShowItem>>> {
@@ -26,11 +27,13 @@ class FetchPopularTvShowUseCase @Inject constructor(
                     error = resource.error
                 )
             }
-//            .doOnNext {
-//                repository.storeMoviesToLocal(mapper.mapFromModel(it?.data!!))
-//            }
-
-
+            .doOnNext {
+                if (it.status == Status.SUCCESS && it.data?.isNotEmpty()!! && page % 2 == 1) {
+                    repository.storeMoviesToLocal(mapper.mapFromModel(it?.data))
+                }
+            }.doOnError {
+                Log.e("fetchMoviesFromRemote", "error : ${it.localizedMessage}", it)
+            }
     }
 
     private fun fetchMoviesFromLocal(): Observable<Resource<List<PopularTvShowItem>>> {
@@ -44,6 +47,5 @@ class FetchPopularTvShowUseCase @Inject constructor(
                 )
             }
             .doOnError { Log.e("fetchMoviesFromLocal", "error : ", it) }
-
     }
 }
