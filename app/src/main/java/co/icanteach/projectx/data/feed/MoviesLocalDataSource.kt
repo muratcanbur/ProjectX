@@ -8,6 +8,6 @@ class MoviesLocalDataSource @Inject constructor(private val popularTVShowDao: Po
 
     fun fetchMovies() = popularTVShowDao.getPopularTVShowsEntity()
     fun storeMovies(sourceList: List<PopularTVShowItemEntity>) =
-        popularTVShowDao.insertAll(sourceList)
+        popularTVShowDao.updateLatest(sourceList)
 
 }

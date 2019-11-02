@@ -1,5 +1,6 @@
 package co.icanteach.projectx.data
 
+import com.facebook.stetho.okhttp3.StethoInterceptor
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -14,7 +15,10 @@ class NetworkModule {
     @Provides
     @Singleton
     fun provideLoggingInterceptor(): HttpLoggingInterceptor {
-        return HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+        val httpLoggingInterceptor = HttpLoggingInterceptor()
+        return httpLoggingInterceptor.apply {
+            httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+        }
     }
 
     @Provides
@@ -26,6 +30,7 @@ class NetworkModule {
         return OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
             .addInterceptor(requestInterceptor)
+            .addNetworkInterceptor(StethoInterceptor())
             .build()
     }
 
