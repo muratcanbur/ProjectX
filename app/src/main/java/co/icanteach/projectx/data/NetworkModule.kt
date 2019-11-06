@@ -1,6 +1,5 @@
 package co.icanteach.projectx.data
 
-import com.facebook.stetho.okhttp3.StethoInterceptor
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -30,7 +29,6 @@ class NetworkModule {
         return OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
             .addInterceptor(requestInterceptor)
-            .addNetworkInterceptor(StethoInterceptor())
             .build()
     }
 

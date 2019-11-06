@@ -43,7 +43,7 @@ class MoviesRepository @Inject constructor(
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .subscribe {
-                Log.d("", "Inserted ${list.size} item from API in DB as a PopularTVShowItemEntity ")
+                Log.d("", "Inserted ${list.size} articleService from API in DB...")
             }.also {
                 CompositeDisposable(it)
             }
