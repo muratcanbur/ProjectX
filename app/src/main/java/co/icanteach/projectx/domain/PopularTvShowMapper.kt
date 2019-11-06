@@ -4,7 +4,6 @@ import co.icanteach.projectx.common.Mapper
 import co.icanteach.projectx.data.feed.response.PopularTVShowItemResponse
 import co.icanteach.projectx.data.feed.response.PopularTVShowsResponse
 import co.icanteach.projectx.data.local.entity.PopularTVShowItemEntity
-import co.icanteach.projectx.data.local.entity.PopularTVShowsEntity
 import co.icanteach.projectx.ui.populartvshows.model.PopularTvShowItem
 import javax.inject.Inject
 
@@ -65,42 +64,4 @@ class PopularTvShowMapper @Inject constructor() {
             }
         }.mapFrom(type)
     }
-
-    fun mapFromEntity(type: PopularTVShowsEntity): List<PopularTvShowItem> {
-        return object : Mapper<PopularTVShowsEntity, List<PopularTvShowItem>> {
-            override fun mapFrom(type: PopularTVShowsEntity): List<PopularTvShowItem> {
-                return type.results.map { itemResponse ->
-                    PopularTvShowItem(
-                        imageUrl = itemResponse.imageUrl,
-                        name = itemResponse.name,
-                        overview = itemResponse.overview
-                    )
-                }
-            }
-        }.mapFrom(type)
-    }
-
-//    fun responseItem(): Mapper<PopularTVShowsResponse, List<PopularTvShowItem>> {
-//        return object : Mapper<PopularTVShowsResponse, List<PopularTvShowItem>> {
-//            override fun mapTo(list: List<PopularTvShowItem>): PopularTVShowsResponse {
-//                return PopularTVShowsResponse(list.map { showItem ->
-//                    PopularTVShowItemResponse(
-//                        imageUrl = showItem.imageUrl,
-//                        name = showItem.name,
-//                        overview = showItem.overview
-//                    )
-//                })
-//            }
-//
-//            override fun mapFrom(type: PopularTVShowsResponse): List<PopularTvShowItem> {
-//                return type.results.map { itemResponse ->
-//                    PopularTvShowItem(
-//                        imageUrl = itemResponse.imageUrl,
-//                        name = itemResponse.name,
-//                        overview = itemResponse.overview
-//                    )
-//                }
-//            }
-//        }
-//    }
 }

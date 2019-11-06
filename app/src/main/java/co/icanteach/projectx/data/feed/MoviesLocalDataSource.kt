@@ -6,8 +6,8 @@ import javax.inject.Inject
 
 class MoviesLocalDataSource @Inject constructor(private val popularTVShowDao: PopularTVShowDao) {
 
-    fun fetchMovies() = popularTVShowDao.getPopularTVShowsEntity()
+    fun getMovies() = popularTVShowDao.getPopularTVShowsEntity()
     fun storeMovies(sourceList: List<PopularTVShowItemEntity>) =
-        popularTVShowDao.insertAll(sourceList)
+        popularTVShowDao.updatePopularTvShowsEntity(sourceList)
 
 }

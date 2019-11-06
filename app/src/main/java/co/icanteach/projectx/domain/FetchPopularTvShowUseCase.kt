@@ -1,8 +1,8 @@
 package co.icanteach.projectx.domain
 
-import android.util.Log
 import co.icanteach.projectx.common.Resource
 import co.icanteach.projectx.data.feed.MoviesRepository
+import co.icanteach.projectx.data.local.entity.PopularTVShowItemEntity
 import co.icanteach.projectx.ui.populartvshows.model.PopularTvShowItem
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -13,12 +13,13 @@ class FetchPopularTvShowUseCase @Inject constructor(
 ) {
 
     fun fetchMovies(page: Int): Observable<Resource<List<PopularTvShowItem>>> {
-        return Observable.concatArrayEager(fetchMoviesFromRemote(page), fetchMoviesFromLocal())
+        return Observable.concatArrayEager(fetchMoviesFromRemote(page), getMoviesFromLocal())
+
     }
 
     private fun fetchMoviesFromRemote(page: Int): Observable<Resource<List<PopularTvShowItem>>> {
         return repository
-            .fetchMoviesFromRemote(page)
+            .fetchMovies(page)
             .map { resource ->
                 Resource(
                     status = resource.status,
@@ -26,16 +27,11 @@ class FetchPopularTvShowUseCase @Inject constructor(
                     error = resource.error
                 )
             }
-//            .doOnNext {
-//                repository.storeMoviesToLocal(mapper.mapFromModel(it?.data!!))
-//            }
-
-
     }
 
-    private fun fetchMoviesFromLocal(): Observable<Resource<List<PopularTvShowItem>>> {
+    private fun getMoviesFromLocal(): Observable<Resource<List<PopularTvShowItem>>> {
         return repository
-            .fetchMoviesFromLocal()
+            .getMovies()
             .map { resource ->
                 Resource(
                     status = resource.status,
@@ -43,7 +39,11 @@ class FetchPopularTvShowUseCase @Inject constructor(
                     error = resource.error
                 )
             }
-            .doOnError { Log.e("fetchMoviesFromLocal", "error : ", it) }
 
+    }
+
+    private fun storeMovies(list: List<PopularTVShowItemEntity>) {
+        return repository
+            .storeMovies(list)
     }
 }
