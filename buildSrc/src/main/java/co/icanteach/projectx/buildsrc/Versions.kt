@@ -18,8 +18,6 @@ object Versions {
     val mockKVersion = "1.9.3"
     val coreTestingVersion = "2.0.0"
     val materialVersion = "1.2.0-alpha01"
-    val roomVersion = "2.2.1"
-    val stethoOkHttpVersion = "1.5.1"
-    val stethoUrlVersion = "1.3.1"
+    val room_version = "2.2.1"
 
 }
