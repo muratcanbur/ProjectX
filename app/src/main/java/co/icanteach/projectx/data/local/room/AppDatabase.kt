@@ -5,11 +5,10 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import co.icanteach.projectx.data.local.dao.PopularTVShowDao
 import co.icanteach.projectx.data.local.entity.PopularTVShowItemEntity
-import co.icanteach.projectx.data.local.entity.PopularTVShowsEntity
 
 
 @Database(
-    entities = [PopularTVShowsEntity::class, PopularTVShowItemEntity::class],
+    entities = [PopularTVShowItemEntity::class],
     version = 1,
     exportSchema = false
 )
