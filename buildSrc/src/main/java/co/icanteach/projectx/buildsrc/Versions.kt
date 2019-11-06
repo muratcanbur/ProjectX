@@ -18,6 +18,7 @@ object Versions {
     val mockKVersion = "1.9.3"
     val coreTestingVersion = "2.0.0"
     val materialVersion = "1.2.0-alpha01"
+    val room_version = "2.2.1"
     val gradleVersionPluginVersion = "0.27.0"
     val room_version = "2.2.1"
 
