@@ -1,7 +1,6 @@
 package co.icanteach.projectx.domain
 
 import co.icanteach.projectx.common.Mapper
-import co.icanteach.projectx.data.feed.response.PopularTVShowItemResponse
 import co.icanteach.projectx.data.feed.response.PopularTVShowsResponse
 import co.icanteach.projectx.data.local.entity.PopularTVShowItemEntity
 import co.icanteach.projectx.ui.populartvshows.model.PopularTvShowItem
@@ -9,21 +8,8 @@ import javax.inject.Inject
 
 class PopularTvShowMapper @Inject constructor() {
 
-    fun mapFromResponse(type: List<PopularTVShowItemResponse>): List<PopularTVShowItemEntity> {
-        return object : Mapper<List<PopularTVShowItemResponse>, List<PopularTVShowItemEntity>> {
-            override fun mapFrom(type: List<PopularTVShowItemResponse>): List<PopularTVShowItemEntity> {
-                return type.map { tvShowItemResponse ->
-                    PopularTVShowItemEntity(
-                        imageUrl = tvShowItemResponse.imageUrl,
-                        name = tvShowItemResponse.name,
-                        overview = tvShowItemResponse.overview
-                    )
-                }
-            }
-        }.mapFrom(type)
-    }
 
-    fun mapFromModel(type: List<PopularTvShowItem>): List<PopularTVShowItemEntity> {
+    fun mapFromItem(type: List<PopularTvShowItem>): List<PopularTVShowItemEntity> {
         return object : Mapper<List<PopularTvShowItem>, List<PopularTVShowItemEntity>> {
             override fun mapFrom(type: List<PopularTvShowItem>): List<PopularTVShowItemEntity> {
                 return type.map { tvShowItem ->

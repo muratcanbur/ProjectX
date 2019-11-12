@@ -1,10 +1,14 @@
 package co.icanteach.projectx.domain
 
+import android.util.Log
 import co.icanteach.projectx.common.Resource
+import co.icanteach.projectx.common.Status
+import co.icanteach.projectx.common.ui.doOnSuccess
 import co.icanteach.projectx.data.feed.MoviesRepository
 import co.icanteach.projectx.data.local.entity.PopularTVShowItemEntity
 import co.icanteach.projectx.ui.populartvshows.model.PopularTvShowItem
 import io.reactivex.Observable
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class FetchPopularTvShowUseCase @Inject constructor(
@@ -13,19 +17,26 @@ class FetchPopularTvShowUseCase @Inject constructor(
 ) {
 
     fun fetchMovies(page: Int): Observable<Resource<List<PopularTvShowItem>>> {
-        return Observable.concatArrayEager(fetchMoviesFromRemote(page), getMoviesFromLocal())
+        return Observable.concatArrayEager(getMoviesFromLocal(),fetchMoviesFromRemote(page))
 
     }
 
     private fun fetchMoviesFromRemote(page: Int): Observable<Resource<List<PopularTvShowItem>>> {
         return repository
             .fetchMovies(page)
+            .delay(10000,TimeUnit.MILLISECONDS)
             .map { resource ->
                 Resource(
                     status = resource.status,
                     data = resource.data?.let { mapper.mapFromResponse(it) },
                     error = resource.error
                 )
+            }
+            .doOnSuccess { resource ->
+                Log.d("doOnSuccess","wollaa")
+                if (page == 1 &&resource.data != null) {
+                    storeMovies(mapper.mapFromItem(resource.data))
+                }
             }
     }
 
@@ -47,3 +58,4 @@ class FetchPopularTvShowUseCase @Inject constructor(
             .storeMovies(list)
     }
 }
+

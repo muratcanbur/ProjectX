@@ -9,6 +9,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import co.icanteach.projectx.common.Resource
+import co.icanteach.projectx.common.Status
 import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
 import io.reactivex.disposables.CompositeDisposable
@@ -28,6 +29,16 @@ fun <T : ViewDataBinding> ViewGroup?.inflate(@LayoutRes layoutId: Int, attachToP
 fun <T> applyLoading(): ObservableTransformer<Resource<T>, Resource<T>> = ObservableTransformer { upstream ->
     Observable.just(Resource.loading<T>()).concatWith(upstream)
 }
+
+fun <T> Observable<Resource<T>>.doOnSuccess(function: (Resource<T>) -> Unit): Observable<Resource<T>> {
+    return this.map {
+        if (it.status == Status.SUCCESS) {
+            function(it)
+        }
+        return@map it
+    }
+}
+
 
 fun <T> LiveData<T>.observeNonNull(owner: LifecycleOwner, observer: (t: T) -> Unit) {
     this.observe(owner, Observer {
