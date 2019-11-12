@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import co.icanteach.projectx.common.ui.EndlessScrollListener
+import androidx.recyclerview.widget.RecyclerView
 import co.icanteach.projectx.common.ui.observeNonNull
 import co.icanteach.projectx.common.ui.runIfNull
 import co.icanteach.projectx.databinding.ActivityMainBinding
@@ -35,14 +35,15 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         moviesViewModel =
-            ViewModelProviders.of(this, viewModelProviderFactory).get(PopularTVShowsViewModel::class.java)
+            ViewModelProviders.of(this, viewModelProviderFactory)
+                .get(PopularTVShowsViewModel::class.java)
 
         moviesViewModel.getPopularTvShowsLiveData().observeNonNull(this) {
             renderPopularTVShows(it)
         }
 
         savedInstanceState.runIfNull {
-            fetchMovies(FIRST_PAGE)
+            moviesViewModel.fetchMovies(FIRST_PAGE)
         }
         initPopularTVShowsRecyclerView()
     }
@@ -52,9 +53,13 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.apply {
             adapter = tvShowsFeedAdapter
             layoutManager = linearLayoutManager
-            addOnScrollListener(object : EndlessScrollListener(linearLayoutManager) {
-                override fun onLoadMore(page: Int) {
-                    fetchMovies(page)
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    val totalItemCount = linearLayoutManager.itemCount
+                    val visibleItemCount = linearLayoutManager.childCount
+                    val lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition()
+
+                    moviesViewModel.listScrolled(visibleItemCount, lastVisibleItem, totalItemCount)
                 }
             })
         }
@@ -66,10 +71,6 @@ class MainActivity : AppCompatActivity() {
             executePendingBindings()
         }
         tvShowsFeedAdapter.setTvShows(feedViewState.getPopularTvShows())
-    }
-
-    private fun fetchMovies(page: Int) {
-        moviesViewModel.fetchMovies(page)
     }
 
     companion object {

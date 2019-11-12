@@ -5,8 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import co.icanteach.projectx.common.Resource
 import co.icanteach.projectx.common.RxAwareViewModel
 import co.icanteach.projectx.common.ui.plusAssign
-import co.icanteach.projectx.data.feed.MoviesRepository
-import co.icanteach.projectx.data.feed.response.PopularTVShowsResponse
 import co.icanteach.projectx.domain.FetchPopularTvShowUseCase
 import co.icanteach.projectx.ui.populartvshows.model.PopularTvShowItem
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -14,6 +12,8 @@ import javax.inject.Inject
 
 class PopularTVShowsViewModel @Inject constructor(private val fetchPopularTvShowUseCase: FetchPopularTvShowUseCase) :
     RxAwareViewModel() {
+
+    private var lastRequestedPage = 1
 
     private val popularTvShowsLiveData = MutableLiveData<PopularTVShowsFeedViewState>()
 
@@ -26,6 +26,7 @@ class PopularTVShowsViewModel @Inject constructor(private val fetchPopularTvShow
             .subscribe(this::onMoviesResultReady)
             .also {
                 disposable += it
+                lastRequestedPage += 1
             }
     }
 
@@ -35,5 +36,20 @@ class PopularTVShowsViewModel @Inject constructor(private val fetchPopularTvShow
             error = resource.error,
             data = resource.data
         )
+    }
+
+    fun listScrolled(visibleItemCount: Int, lastVisibleItemPosition: Int, totalItemCount: Int) {
+        if (visibleItemCount + lastVisibleItemPosition + VISIBLE_THRESHOLD >= totalItemCount) {
+            val immutableQuery = lastQueryValue()
+            if (immutableQuery != null) {
+                fetchMovies(lastRequestedPage)
+            }
+        }
+    }
+
+    private fun lastQueryValue(): List<PopularTvShowItem>? = popularTvShowsLiveData.value?.data
+
+    companion object {
+        private const val VISIBLE_THRESHOLD = 4
     }
 }
