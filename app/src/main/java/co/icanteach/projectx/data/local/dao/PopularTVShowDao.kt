@@ -2,20 +2,19 @@ package co.icanteach.projectx.data.local.dao
 
 import androidx.room.*
 import co.icanteach.projectx.data.local.entity.PopularTVShowItemEntity
-import io.reactivex.Completable
 import io.reactivex.Single
 
 @Dao
 interface PopularTVShowDao {
 
-    @Query("SELECT * FROM popularTVShowItemEntity")
+    @Query("SELECT * FROM PopularTVShowItemEntity")
     fun getPopularTVShowsEntity(): Single<List<PopularTVShowItemEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(popularTVShowsEntity: List<PopularTVShowItemEntity>): Completable
+    fun insertAll(tvShowsEntity: List<PopularTVShowItemEntity>)
 
-    @Query("DELETE FROM popularTVShowItemEntity")
-    fun deleteAll(): Completable
+    @Query("DELETE FROM PopularTVShowItemEntity")
+    fun deleteAll()
 
 
     @Transaction
