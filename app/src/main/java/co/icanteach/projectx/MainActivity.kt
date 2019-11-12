@@ -13,6 +13,7 @@ import co.icanteach.projectx.databinding.ActivityMainBinding
 import co.icanteach.projectx.ui.populartvshows.PopularTVShowsFeedAdapter
 import co.icanteach.projectx.ui.populartvshows.PopularTVShowsFeedViewState
 import co.icanteach.projectx.ui.populartvshows.PopularTVShowsViewModel
+import co.icanteach.projectx.ui.populartvshows.model.PopularTvShowItem
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
@@ -27,6 +28,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var moviesViewModel: PopularTVShowsViewModel
     private lateinit var binding: ActivityMainBinding
+    private var popularTvShowItemList: MutableList<PopularTvShowItem> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -70,7 +72,11 @@ class MainActivity : AppCompatActivity() {
             viewState = feedViewState
             executePendingBindings()
         }
-        tvShowsFeedAdapter.setTvShows(feedViewState.getPopularTvShows())
+
+        feedViewState.data?.let {
+            popularTvShowItemList.addAll(it)
+            tvShowsFeedAdapter.submitList(popularTvShowItemList)
+        }
     }
 
     companion object {
