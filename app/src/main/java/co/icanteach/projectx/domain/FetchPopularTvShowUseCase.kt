@@ -1,6 +1,7 @@
 package co.icanteach.projectx.domain
 
 import co.icanteach.projectx.common.Resource
+import co.icanteach.projectx.common.map
 import co.icanteach.projectx.data.feed.MoviesRepository
 import co.icanteach.projectx.ui.populartvshows.model.PopularTvShowItem
 import io.reactivex.Observable
@@ -15,11 +16,9 @@ class FetchPopularTvShowUseCase @Inject constructor(
         return repository
             .fetchMovies(page)
             .map { resource ->
-                Resource(
-                    status = resource.status,
-                    data = resource.data?.let { mapper.mapFrom(it) },
-                    error = resource.error
-                )
+                resource.map { response ->
+                    mapper.mapFrom(response)
+                }
             }
     }
 }

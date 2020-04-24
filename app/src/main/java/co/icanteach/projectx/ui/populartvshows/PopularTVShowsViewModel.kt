@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import co.icanteach.projectx.common.Resource
 import co.icanteach.projectx.common.RxAwareViewModel
+import co.icanteach.projectx.common.Status
+import co.icanteach.projectx.common.ui.doOnSuccess
 import co.icanteach.projectx.common.ui.plusAssign
-import co.icanteach.projectx.data.feed.MoviesRepository
-import co.icanteach.projectx.data.feed.response.PopularTVShowsResponse
 import co.icanteach.projectx.domain.FetchPopularTvShowUseCase
 import co.icanteach.projectx.ui.populartvshows.model.PopularTvShowItem
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -15,25 +15,36 @@ import javax.inject.Inject
 class PopularTVShowsViewModel @Inject constructor(private val fetchPopularTvShowUseCase: FetchPopularTvShowUseCase) :
     RxAwareViewModel() {
 
-    private val popularTvShowsLiveData = MutableLiveData<PopularTVShowsFeedViewState>()
 
-    fun getPopularTvShowsLiveData(): LiveData<PopularTVShowsFeedViewState> = popularTvShowsLiveData
+    private val contents = MutableLiveData<List<PopularTvShowItem>>()
+    val contents_: LiveData<List<PopularTvShowItem>> = contents
+
+    private val status = MutableLiveData<PopularTVShowsStatusViewState>()
+    val status_: LiveData<PopularTVShowsStatusViewState> = status
 
     fun fetchMovies(page: Int) {
         fetchPopularTvShowUseCase
             .fetchMovies(page)
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(this::onMoviesResultReady)
-            .also {
-                disposable += it
+            .doOnSuccess { list ->
+                onMoviesContentResultReady(list)
             }
+            .subscribe({ resource ->
+                onMoviesStatusResultReady(resource)
+            }, {})
+            .also { disposable += it }
     }
 
-    private fun onMoviesResultReady(resource: Resource<List<PopularTvShowItem>>) {
-        popularTvShowsLiveData.value = PopularTVShowsFeedViewState(
-            status = resource.status,
-            error = resource.error,
-            data = resource.data
-        )
+    private fun onMoviesStatusResultReady(resource: Resource<List<PopularTvShowItem>>) {
+        val viewState = when (resource) {
+            is Resource.Success -> PopularTVShowsStatusViewState(Status.Content)
+            is Resource.Error -> PopularTVShowsStatusViewState(Status.Error(resource.exception))
+            Resource.Loading -> PopularTVShowsStatusViewState(Status.Loading)
+        }
+        status.value = viewState
+    }
+
+    private fun onMoviesContentResultReady(results: List<PopularTvShowItem>) {
+        contents.value = results
     }
 }

@@ -1,7 +1,7 @@
 package co.icanteach.projectx
 
 import co.icanteach.projectx.common.Status
-import co.icanteach.projectx.ui.populartvshows.PopularTVShowsFeedViewState
+import co.icanteach.projectx.ui.populartvshows.PopularTVShowsStatusViewState
 import com.google.common.truth.Truth
 import org.junit.Test
 
@@ -12,7 +12,7 @@ class PopularTVShowsFeedViewStateTest {
 
         // Given
         val givenViewState =
-            PopularTVShowsFeedViewState(status = Status.LOADING)
+            PopularTVShowsStatusViewState(status = Status.Loading)
 
         // When
         val actualResult = givenViewState.isLoading()
@@ -26,7 +26,7 @@ class PopularTVShowsFeedViewStateTest {
 
         // Given
         val givenViewState =
-            PopularTVShowsFeedViewState(status = Status.SUCCESS)
+            PopularTVShowsStatusViewState(status = Status.Error(Exception()))
 
         // When
         val actualResult = givenViewState.isLoading()
@@ -39,7 +39,7 @@ class PopularTVShowsFeedViewStateTest {
     fun `should not return loading false when status is success`() {
 
         // Given
-        val givenViewState = PopularTVShowsFeedViewState(status = Status.ERROR)
+        val givenViewState = PopularTVShowsStatusViewState(status = Status.Content)
 
         // When
         val actualResult = givenViewState.isLoading()
@@ -53,9 +53,8 @@ class PopularTVShowsFeedViewStateTest {
 
         // Given
         val givenViewState =
-            PopularTVShowsFeedViewState(
-                status = Status.ERROR,
-                error = Exception("500 Internal Server Error")
+            PopularTVShowsStatusViewState(
+                status = Status.Error(Exception("500 Internal Server Error"))
             )
 
         // When
@@ -70,9 +69,8 @@ class PopularTVShowsFeedViewStateTest {
 
         // Given
         val givenViewState =
-            PopularTVShowsFeedViewState(
-                status = Status.ERROR,
-                error = Exception("500 Internal Server Error")
+            PopularTVShowsStatusViewState(
+                status = Status.Error(Exception("500 Internal Server Error"))
             )
 
         // When

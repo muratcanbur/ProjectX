@@ -10,29 +10,47 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import co.icanteach.projectx.common.Resource
 import io.reactivex.Observable
-import io.reactivex.ObservableTransformer
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 
 
 /**
  * http://kotlinextensions.com/
  */
 fun <T : ViewDataBinding> ViewGroup?.inflate(@LayoutRes layoutId: Int, attachToParent: Boolean = true): T {
-    return DataBindingUtil.inflate(LayoutInflater.from(this!!.context), layoutId, this, attachToParent)
+    return DataBindingUtil.inflate(
+        LayoutInflater.from(this!!.context),
+        layoutId,
+        this,
+        attachToParent
+    )
 }
 
-/**
- * https://blog.danlew.net/2015/03/02/dont-break-the-chain/
- */
-fun <T> applyLoading(): ObservableTransformer<Resource<T>, Resource<T>> = ObservableTransformer { upstream ->
-    Observable.just(Resource.loading<T>()).concatWith(upstream)
-}
+
+fun <T> Observable<T>.remote(): Observable<Resource<T>> =
+    map<Resource<T>> { Resource.Success(it) }
+        .onErrorReturn { throwable ->
+            Resource.Error(throwable)
+        }
+        .subscribeOn(Schedulers.io())
+        .startWith(Resource.Loading)
 
 fun <T> LiveData<T>.observeNonNull(owner: LifecycleOwner, observer: (t: T) -> Unit) {
     this.observe(owner, Observer {
         it?.let(observer)
     })
+}
+
+fun <T> Observable<Resource<T>>.doOnSuccess(
+    onSuccess: (T) -> (Unit)
+): Observable<Resource<T>> {
+    return this.doOnNext {
+        if (it is Resource.Success) {
+            onSuccess(it.data)
+        }
+    }
+
 }
 
 operator fun CompositeDisposable.plusAssign(disposable: Disposable) {

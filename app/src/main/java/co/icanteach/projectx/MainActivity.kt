@@ -11,8 +11,9 @@ import co.icanteach.projectx.common.ui.observeNonNull
 import co.icanteach.projectx.common.ui.runIfNull
 import co.icanteach.projectx.databinding.ActivityMainBinding
 import co.icanteach.projectx.ui.populartvshows.PopularTVShowsFeedAdapter
-import co.icanteach.projectx.ui.populartvshows.PopularTVShowsFeedViewState
+import co.icanteach.projectx.ui.populartvshows.PopularTVShowsStatusViewState
 import co.icanteach.projectx.ui.populartvshows.PopularTVShowsViewModel
+import co.icanteach.projectx.ui.populartvshows.model.PopularTvShowItem
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
@@ -35,16 +36,26 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         moviesViewModel =
-            ViewModelProviders.of(this, viewModelProviderFactory).get(PopularTVShowsViewModel::class.java)
+            ViewModelProviders.of(this, viewModelProviderFactory)
+                .get(PopularTVShowsViewModel::class.java)
 
-        moviesViewModel.getPopularTvShowsLiveData().observeNonNull(this) {
-            renderPopularTVShows(it)
+        moviesViewModel.contents_.observeNonNull(this) { contents ->
+            renderPopularTVShows(contents)
+        }
+
+        moviesViewModel.status_.observeNonNull(this) { contents ->
+            renderStatusResult(contents)
         }
 
         savedInstanceState.runIfNull {
             fetchMovies(FIRST_PAGE)
         }
         initPopularTVShowsRecyclerView()
+    }
+
+    private fun renderStatusResult(statusViewState: PopularTVShowsStatusViewState) {
+        binding.viewState = statusViewState
+        binding.executePendingBindings()
     }
 
     private fun initPopularTVShowsRecyclerView() {
@@ -60,12 +71,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun renderPopularTVShows(feedViewState: PopularTVShowsFeedViewState) {
-        with(binding) {
-            viewState = feedViewState
-            executePendingBindings()
-        }
-        tvShowsFeedAdapter.setTvShows(feedViewState.getPopularTvShows())
+    private fun renderPopularTVShows(contents: List<PopularTvShowItem>) {
+        tvShowsFeedAdapter.setTvShows(contents)
     }
 
     private fun fetchMovies(page: Int) {

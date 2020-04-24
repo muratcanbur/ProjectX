@@ -1,22 +1,28 @@
 package co.icanteach.projectx.common
 
-import androidx.annotation.NonNull
-
 // references :
 // https://developer.android.com/jetpack/docs/guide#addendum
 
-class Resource<T> constructor(val status: Status, val data: T?, val error: Throwable? = null) {
 
-    companion object {
+sealed class Resource<out T> {
+    class Success<T>(val data: T) : Resource<T>()
+    class Error(val exception: Throwable) : Resource<Nothing>()
+    object Loading : Resource<Nothing>()
+}
 
-        fun <T> success(@NonNull data: T): Resource<T> {
-            return Resource(Status.SUCCESS, data)
-        }
-
-        fun <T> error(throwable: Throwable): Resource<T> {
-            return Resource(status = Status.ERROR, data = null, error = throwable)
-        }
-
-        fun <T> loading(): Resource<T> = Resource(Status.LOADING, null)
+inline fun <T, R> Resource<T>.map(transform: (T) -> R): Resource<R> {
+    return when (this) {
+        is Resource.Success -> Resource.Success(transform(data))
+        is Resource.Error -> Resource.Error(exception)
+        is Resource.Loading -> Resource.Loading
     }
+}
+
+sealed class Status {
+
+    object Content : Status()
+
+    data class Error(val exception: Throwable) : Status()
+
+    object Loading : Status()
 }

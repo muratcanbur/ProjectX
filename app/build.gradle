@@ -51,22 +51,21 @@ dependencies {
     implementation Dependencies.okhttp
 
     // support
-    implementation  Dependencies.recyclerView
+    implementation Dependencies.recyclerView
 
     //rxjava
-    implementation  Dependencies.rxAndroid
-    implementation  Dependencies.rxJava
+    implementation Dependencies.rxAndroid
+    implementation Dependencies.rxJava
 
     //glide
-    implementation  Dependencies.glide
-    kapt  Dependencies.glideCompiler
+    implementation Dependencies.glide
+    kapt Dependencies.glideCompiler
 
     // Testing
+    androidTestImplementation Dependencies.androidxTestRunner
+    androidTestImplementation Dependencies.espressoCore
+    testImplementation Dependencies.truthExt
+    testImplementation Dependencies.mockK
+    testImplementation Dependencies.coreTesting
     testImplementation Dependencies.junit
-    androidTestImplementation  Dependencies.androidxTestRunner
-    androidTestImplementation  Dependencies.espressoCore
-    testImplementation  Dependencies.truthExt
-    testImplementation  Dependencies.truth
-    testImplementation  Dependencies.mockK
-    testImplementation  Dependencies.coreTesting
 }

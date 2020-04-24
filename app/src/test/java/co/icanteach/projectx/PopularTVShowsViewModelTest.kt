@@ -4,18 +4,13 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import co.icanteach.RxImmediateSchedulerRule
 import co.icanteach.projectx.common.Resource
-import co.icanteach.projectx.common.Status
-import co.icanteach.projectx.common.ui.applyLoading
 import co.icanteach.projectx.domain.FetchPopularTvShowUseCase
-import co.icanteach.projectx.ui.populartvshows.PopularTVShowsFeedViewState
+import co.icanteach.projectx.ui.populartvshows.PopularTVShowsStatusViewState
 import co.icanteach.projectx.ui.populartvshows.PopularTVShowsViewModel
 import co.icanteach.projectx.ui.populartvshows.model.PopularTvShowItem
-import com.google.common.truth.Truth
-import io.mockk.MockKAnnotations
-import io.mockk.every
+import com.google.common.truth.Truth.assertThat
+import io.mockk.*
 import io.mockk.impl.annotations.MockK
-import io.mockk.spyk
-import io.mockk.verify
 import io.reactivex.Observable
 import org.junit.Before
 import org.junit.Rule
@@ -43,50 +38,26 @@ class PopularTVShowsViewModelTest {
     }
 
     @Test
-    fun `given loading state, when fetchMovies called, then update live data for loading status`() {
+    fun `given loading state, when fetchMovies called, then isLoading return true`() {
 
         // Given
         val mockedObserver = createPopularTVShowsFeedObserver()
-        popularTVShowsViewModel.getPopularTvShowsLiveData()
-            .observeForever(mockedObserver)
+        popularTVShowsViewModel.status_.observeForever(mockedObserver)
 
         every { fetchPopularTvShowUseCase.fetchMovies(any()) } returns
-                Observable.just(Resource.success(createPopularTVShows()))
-                    .compose(applyLoading())
+                Observable.just(Resource.Loading)
 
         // When
         popularTVShowsViewModel.fetchMovies(1)
 
         // Then
-        val popularTVShowsFeedViewStateSlots = mutableListOf<PopularTVShowsFeedViewState>()
+        val popularTVShowsFeedViewStateSlots = mutableListOf<PopularTVShowsStatusViewState>()
         verify { mockedObserver.onChanged(capture(popularTVShowsFeedViewStateSlots)) }
 
-        val errorState = popularTVShowsFeedViewStateSlots[0]
-        Truth.assertThat(errorState.status).isEqualTo(Status.LOADING)
+        val slot = slot<PopularTVShowsStatusViewState>()
+        verify { mockedObserver.onChanged(capture(slot)) }
 
-        verify { fetchPopularTvShowUseCase.fetchMovies(any()) }
-    }
-
-    @Test
-    fun `given success state, when fetchMovies called, then update live data for success status`() {
-        // Given
-        val mockedObserver = createPopularTVShowsFeedObserver()
-        popularTVShowsViewModel.getPopularTvShowsLiveData()
-            .observeForever(mockedObserver)
-
-        every { fetchPopularTvShowUseCase.fetchMovies(any()) } returns
-                Observable.just(Resource.success(createPopularTVShows()))
-                    .compose(applyLoading())
-
-        // When
-        popularTVShowsViewModel.fetchMovies(1)
-
-        // Then
-        val popularTVShowsFeedViewStateSlots = mutableListOf<PopularTVShowsFeedViewState>()
-        verify(exactly = 2) { mockedObserver.onChanged(capture(popularTVShowsFeedViewStateSlots)) }
-
-        val errorState = popularTVShowsFeedViewStateSlots[1]
-        Truth.assertThat(errorState.status).isEqualTo(Status.SUCCESS)
+        assertThat(slot.captured.isLoading()).isTrue()
 
         verify { fetchPopularTvShowUseCase.fetchMovies(any()) }
     }
@@ -95,41 +66,51 @@ class PopularTVShowsViewModelTest {
     fun `given error state, when fetchMovies called, then update live data for error status`() {
         // Given
         val mockedObserver = createPopularTVShowsFeedObserver()
-        popularTVShowsViewModel.getPopularTvShowsLiveData()
-            .observeForever(mockedObserver)
+        popularTVShowsViewModel.status_.observeForever(mockedObserver)
+        val message = "This is an error!"
+        val resource = Resource.Error(Throwable(message))
 
-        every { fetchPopularTvShowUseCase.fetchMovies(any()) } returns
-                Observable.just(Resource.error<List<PopularTvShowItem>>(Exception("unhandled exception")))
-                    .compose(applyLoading())
+        every { fetchPopularTvShowUseCase.fetchMovies(any()) } returns Observable.just(resource)
 
         // When
         popularTVShowsViewModel.fetchMovies(1)
 
         // Then
-        val popularTVShowsFeedViewStateSlots = mutableListOf<PopularTVShowsFeedViewState>()
-        verify(exactly = 2) { mockedObserver.onChanged(capture(popularTVShowsFeedViewStateSlots)) }
+        val slot = slot<PopularTVShowsStatusViewState>()
+        verify { mockedObserver.onChanged(capture(slot)) }
 
-        val errorState = popularTVShowsFeedViewStateSlots[1]
-        Truth.assertThat(errorState.status).isEqualTo(Status.ERROR)
+        assertThat(slot.captured.getErrorMessage()).isEqualTo(message)
+        assertThat(slot.captured.isLoading()).isFalse()
 
         verify { fetchPopularTvShowUseCase.fetchMovies(any()) }
     }
 
-    private fun createPopularTVShowsFeedObserver(): Observer<PopularTVShowsFeedViewState> = spyk(Observer { })
+    @Test
+    fun `given succcess state, when fetchMovies called, then isLoading return false`() {
+        // Given
+        val mockedObserver = createPopularTVShowsFeedObserver()
+        popularTVShowsViewModel.status_.observeForever(mockedObserver)
+        val resource = Resource.Success(mutableListOf<PopularTvShowItem>())
 
-    private fun createDummyTvShow(): PopularTvShowItem {
-        return PopularTvShowItem(
-            name = "Chernobyl",
-            imageUrl = "/hlLXt2tOPT6RRnjiUmoxyG1LTFi.jpg",
-            overview = "An unassuming mystery writer turned sleuth uses her professional insight to help solve real-life homicide cases."
-        )
+        every { fetchPopularTvShowUseCase.fetchMovies(any()) } returns Observable.just(resource)
+
+
+        // When
+        popularTVShowsViewModel.fetchMovies(1)
+
+        // Then
+        val popularTVShowsFeedViewStateSlots = mutableListOf<PopularTVShowsStatusViewState>()
+        verify { mockedObserver.onChanged(capture(popularTVShowsFeedViewStateSlots)) }
+
+        // Then
+        val slot = slot<PopularTVShowsStatusViewState>()
+        verify { mockedObserver.onChanged(capture(slot)) }
+
+        assertThat(slot.captured.isLoading()).isFalse()
+
+        verify { fetchPopularTvShowUseCase.fetchMovies(any()) }
     }
 
-    private fun createPopularTVShows(): List<PopularTvShowItem> {
-        val popularTvShows = mutableListOf<PopularTvShowItem>()
-        for (x in 0..10) {
-            popularTvShows.add(createDummyTvShow())
-        }
-        return popularTvShows
-    }
+    private fun createPopularTVShowsFeedObserver(): Observer<PopularTVShowsStatusViewState> =
+        spyk(Observer { })
 }
