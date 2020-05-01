@@ -51,9 +51,6 @@ class PopularTVShowsViewModelTest {
         popularTVShowsViewModel.fetchMovies(1)
 
         // Then
-        val popularTVShowsFeedViewStateSlots = mutableListOf<PopularTVShowsStatusViewState>()
-        verify { mockedObserver.onChanged(capture(popularTVShowsFeedViewStateSlots)) }
-
         val slot = slot<PopularTVShowsStatusViewState>()
         verify { mockedObserver.onChanged(capture(slot)) }
 
