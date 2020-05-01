@@ -18,9 +18,11 @@
             android:orientation="vertical">
 
         <TextView
+                tools:text="@tools:sample/lorem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                tools:visibility="visible"
                 android:text="@{viewState.errorMessage}"
                 app:visibleIf="@{viewState.shouldShowErrorMessage}" />
 
@@ -30,12 +32,19 @@
                 android:layout_height="wrap_content"
                 android:indeterminate="true"
                 android:theme="@style/LinearProgress"
-                app:visibleIf="@{viewState.isLoading}" />
+                app:visibleIf="@{viewState.isLoading}"
+                tools:visibility="visible" />
 
         <androidx.recyclerview.widget.RecyclerView
+                tools:visibility="visible"
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="0dp"
+                tools:listitem="@layout/item_popular_tv_shows_feed" />
 
 
     </RelativeLayout>

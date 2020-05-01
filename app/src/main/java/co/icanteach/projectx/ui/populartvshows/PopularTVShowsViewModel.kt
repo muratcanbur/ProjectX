@@ -1,5 +1,6 @@
 package co.icanteach.projectx.ui.populartvshows
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import co.icanteach.projectx.common.Resource
@@ -36,6 +37,9 @@ class PopularTVShowsViewModel @Inject constructor(private val fetchPopularTvShow
     }
 
     private fun onMoviesStatusResultReady(resource: Resource<List<PopularTvShowItem>>) {
+
+        Log.v("TESTTEST", resource.toString())
+
         val viewState = when (resource) {
             is Resource.Success -> PopularTVShowsStatusViewState(Status.Content)
             is Resource.Error -> PopularTVShowsStatusViewState(Status.Error(resource.exception))

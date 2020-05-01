@@ -1,7 +1,7 @@
 object Versions {
     val kotlinVersion = "1.3.41"
     val gradleVersion = "3.4.2"
-    val appcompatVersion = "1.1.0-rc01"
+    val appcompatVersion = "1.1.0"
     val junitVersion = "4.12"
     val androidxTestRunnerVersion = "1.3.0-alpha01"
     val espressoCoreVersion = "3.3.0-alpha01"

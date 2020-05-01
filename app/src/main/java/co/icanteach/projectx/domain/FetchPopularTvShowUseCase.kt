@@ -19,6 +19,6 @@ class FetchPopularTvShowUseCase @Inject constructor(
                 resource.map { response ->
                     mapper.mapFrom(response)
                 }
-            }
+            }.startWith(Resource.Loading)
     }
 }
