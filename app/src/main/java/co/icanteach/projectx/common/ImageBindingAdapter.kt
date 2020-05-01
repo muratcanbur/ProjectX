@@ -1,4 +1,4 @@
-package co.icanteach.projectx.common.ui
+package co.icanteach.projectx.common
 
 import android.view.View
 import android.widget.ImageView

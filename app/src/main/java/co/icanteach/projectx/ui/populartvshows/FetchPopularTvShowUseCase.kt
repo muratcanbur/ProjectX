@@ -1,4 +1,4 @@
-package co.icanteach.projectx.domain
+package co.icanteach.projectx.ui.populartvshows
 
 import co.icanteach.projectx.common.Resource
 import co.icanteach.projectx.common.map

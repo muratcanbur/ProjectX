@@ -3,8 +3,7 @@ package co.icanteach.projectx.ui.populartvshows
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import co.icanteach.projectx.R
-import co.icanteach.projectx.common.ui.inflate
-import co.icanteach.projectx.data.feed.response.PopularTVShowItemResponse
+import co.icanteach.projectx.common.inflate
 import co.icanteach.projectx.databinding.ItemPopularTvShowsFeedBinding
 import co.icanteach.projectx.ui.populartvshows.model.PopularTvShowItem
 import javax.inject.Inject

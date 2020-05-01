@@ -1,4 +1,4 @@
-package co.icanteach.projectx.domain
+package co.icanteach.projectx.ui.populartvshows
 
 import co.icanteach.projectx.common.Mapper
 import co.icanteach.projectx.data.feed.response.PopularTVShowsResponse

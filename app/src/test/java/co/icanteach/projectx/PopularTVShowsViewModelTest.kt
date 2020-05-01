@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import co.icanteach.RxImmediateSchedulerRule
 import co.icanteach.projectx.common.Resource
-import co.icanteach.projectx.domain.FetchPopularTvShowUseCase
+import co.icanteach.projectx.ui.populartvshows.FetchPopularTvShowUseCase
 import co.icanteach.projectx.ui.populartvshows.PopularTVShowsStatusViewState
 import co.icanteach.projectx.ui.populartvshows.PopularTVShowsViewModel
 import co.icanteach.projectx.ui.populartvshows.model.PopularTvShowItem

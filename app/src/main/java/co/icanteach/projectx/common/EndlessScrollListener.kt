@@ -1,4 +1,4 @@
-package co.icanteach.projectx.common.ui
+package co.icanteach.projectx.common
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView

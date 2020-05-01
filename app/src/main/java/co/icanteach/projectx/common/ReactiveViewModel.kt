@@ -6,7 +6,7 @@ import io.reactivex.disposables.CompositeDisposable
 /**
  * reference : https://github.com/googlesamples/android-architecture-components
  */
-open class RxAwareViewModel : ViewModel() {
+open class ReactiveViewModel : ViewModel() {
     val disposable = CompositeDisposable()
 
     override fun onCleared() {

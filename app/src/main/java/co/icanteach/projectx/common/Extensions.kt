@@ -1,4 +1,4 @@
-package co.icanteach.projectx.common.ui
+package co.icanteach.projectx.common
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,7 +8,6 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import co.icanteach.projectx.common.Resource
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -27,14 +26,12 @@ fun <T : ViewDataBinding> ViewGroup?.inflate(@LayoutRes layoutId: Int, attachToP
     )
 }
 
-
 fun <T> Observable<T>.remote(): Observable<Resource<T>> =
     map<Resource<T>> { Resource.Success(it) }
         .onErrorReturn { throwable ->
             Resource.Error(throwable)
         }
         .subscribeOn(Schedulers.io())
-        .startWith(Resource.Loading)
 
 fun <T> LiveData<T>.observeNonNull(owner: LifecycleOwner, observer: (t: T) -> Unit) {
     this.observe(owner, Observer {

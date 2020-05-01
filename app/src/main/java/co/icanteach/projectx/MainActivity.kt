@@ -6,9 +6,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import co.icanteach.projectx.common.ui.EndlessScrollListener
-import co.icanteach.projectx.common.ui.observeNonNull
-import co.icanteach.projectx.common.ui.runIfNull
+import co.icanteach.projectx.common.EndlessScrollListener
+import co.icanteach.projectx.common.observeNonNull
+import co.icanteach.projectx.common.runIfNull
 import co.icanteach.projectx.databinding.ActivityMainBinding
 import co.icanteach.projectx.ui.populartvshows.PopularTVShowsFeedAdapter
 import co.icanteach.projectx.ui.populartvshows.PopularTVShowsStatusViewState
