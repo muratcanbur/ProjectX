@@ -2,6 +2,7 @@
 
 Android App using The Movie DB API
 
+<img src="https://github.com/muratcanbur/ProjectX/blob/master/art/app_screenshot.png" width="200" height="400">
 
 ## Description
 
@@ -23,6 +24,9 @@ a simple app that contains some basic functionality. It connects to the Movies D
 - Repository layer provides data to ViewModel classes. (single source of truth)
 
 ## Unit testing and Application Arch.
+
+<img src="https://github.com/muratcanbur/ProjectX/blob/master/art/app_%20architecture.jpeg" width="500" height="300">
+
 .
 ViewModel and ViewStates classes should be tested.
 
