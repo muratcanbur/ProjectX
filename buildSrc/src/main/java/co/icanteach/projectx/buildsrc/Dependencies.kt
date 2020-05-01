@@ -8,10 +8,6 @@ object Dependencies {
     val daggerAndroid = "com.google.dagger:dagger-android-support:${Versions.daggerVersion}"
     val daggerCompiler = "com.google.dagger:dagger-compiler:${Versions.daggerVersion}"
     val daggerProcessor = "com.google.dagger:dagger-android-processor:${Versions.daggerVersion}"
-    val lifecycleExtension = "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycleVersion}"
-    val lifecycleViewModel =
-        "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycleVersion}"
-    val lifecycleCompiler = "androidx.lifecycle:lifecycle-compiler:${Versions.lifecycleVersion}"
     val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofitVersion}"
     val retrofitGsonConverter = "com.squareup.retrofit2:converter-gson:${Versions.retrofitVersion}"
     val retrofitRxJavaAdapter = "com.squareup.retrofit2:adapter-rxjava2:${Versions.retrofitVersion}"

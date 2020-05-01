@@ -6,7 +6,6 @@ object Versions {
     val androidxTestRunnerVersion = "1.3.0-alpha01"
     val espressoCoreVersion = "3.3.0-alpha01"
     val daggerVersion = "2.23.2"
-    val lifecycleVersion = "2.2.0-alpha02"
     val retrofitVersion = "2.6.0"
     val okhttpVersion = "4.0.1"
     val recyclerViewVersion = "1.1.0-beta01"

@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.icanteach.projectx.common.EndlessScrollListener
 import co.icanteach.projectx.common.observeNonNull
@@ -36,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         moviesViewModel =
-            ViewModelProviders.of(this, viewModelProviderFactory)
+            ViewModelProvider(this, viewModelProviderFactory)
                 .get(PopularTVShowsViewModel::class.java)
 
         moviesViewModel.contents_.observeNonNull(this) { contents ->

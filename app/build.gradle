@@ -39,11 +39,6 @@ dependencies {
     kapt Dependencies.daggerCompiler
     kapt Dependencies.daggerProcessor
 
-    // ViewModel & LiveData
-    implementation Dependencies.lifecycleExtension
-    implementation Dependencies.lifecycleViewModel
-    kapt Dependencies.lifecycleCompiler
-
     // Retrofit & Gson.
     implementation Dependencies.retrofit
     implementation Dependencies.retrofitGsonConverter
