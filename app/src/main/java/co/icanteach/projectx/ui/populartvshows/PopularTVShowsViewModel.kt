@@ -2,16 +2,14 @@ package co.icanteach.projectx.ui.populartvshows
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import co.icanteach.projectx.common.Resource
-import co.icanteach.projectx.common.ReactiveViewModel
-import co.icanteach.projectx.common.Status
-import co.icanteach.projectx.common.doOnSuccess
-import co.icanteach.projectx.common.plusAssign
+import co.icanteach.projectx.common.*
 import co.icanteach.projectx.ui.populartvshows.model.PopularTvShowItem
 import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 
-class PopularTVShowsViewModel @Inject constructor(private val fetchPopularTvShowUseCase: FetchPopularTvShowUseCase) :
+class PopularTVShowsViewModel @Inject constructor(
+    private val fetchPopularTvShowUseCase: FetchPopularTvShowUseCase
+) :
     ReactiveViewModel() {
 
 

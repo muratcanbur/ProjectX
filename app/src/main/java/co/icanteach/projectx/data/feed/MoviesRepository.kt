@@ -6,10 +6,10 @@ import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class MoviesRepository @Inject constructor(private val moviesRemoteDataSource: MoviesRemoteDataSource) {
+class MoviesRepository @Inject constructor(private val remoteDataSource: MoviesRemoteDataSource) {
 
     fun fetchMovies(page: Int): Observable<Resource<PopularTVShowsResponse>> {
-        return moviesRemoteDataSource
+        return remoteDataSource
             .fetchMovies(page)
             .map<Resource<PopularTVShowsResponse>> {
                 Resource.Success(it)
