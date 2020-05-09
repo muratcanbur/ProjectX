@@ -50,9 +50,8 @@ fun <T> Observable<Resource<T>>.doOnSuccess(
 
 }
 
-operator fun CompositeDisposable.plusAssign(disposable: Disposable) {
-    add(disposable)
-}
+fun Disposable.addTo(compositeDisposable: CompositeDisposable): Disposable =
+    apply { compositeDisposable.add(this) }
 
 fun Any?.runIfNull(block: () -> Unit) {
     if (this == null) block()

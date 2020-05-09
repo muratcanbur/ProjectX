@@ -29,7 +29,7 @@ class PopularTVShowsViewModel @Inject constructor(
             .subscribe({ resource ->
                 onMoviesStatusResultReady(resource)
             }, {})
-            .also { disposable += it }
+            .addTo(disposable)
     }
 
     private fun onMoviesStatusResultReady(resource: Resource<List<PopularTvShowItem>>) {
