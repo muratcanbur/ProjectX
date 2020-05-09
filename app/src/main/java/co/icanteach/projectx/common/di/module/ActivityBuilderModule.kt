@@ -7,9 +7,9 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
 @Module
-abstract class ActivityBuilderModule {
+interface ActivityBuilderModule {
 
     @ActivityScope
-    @ContributesAndroidInjector(modules = [PopularTvShowActivityModule::class])
-    abstract fun bindMainActivity(): MainActivity
+    @get:ContributesAndroidInjector(modules = [PopularTvShowActivityModule::class])
+    val mainActivity: MainActivity
 }

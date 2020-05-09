@@ -10,13 +10,13 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 
 @Module
-abstract class ViewModelModule {
+interface ViewModelModule {
 
-    @IntoMap
-    @Binds
-    @ViewModelKey(PopularTVShowsViewModel::class)
-    abstract fun provideMoviesViewModel(moviesViewModel: PopularTVShowsViewModel): ViewModel
+    @get:IntoMap
+    @get:Binds
+    @get:ViewModelKey(PopularTVShowsViewModel::class)
+    val PopularTVShowsViewModel.popularTVShowsViewModel: ViewModel
 
-    @Binds
-    abstract fun bindViewModelFactory(viewModelFactory: ViewModelFactory): ViewModelProvider.Factory
+    @get:Binds
+    val ViewModelFactory.viewModelFactory: ViewModelProvider.Factory
 }
