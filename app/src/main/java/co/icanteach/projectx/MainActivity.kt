@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.icanteach.projectx.common.EndlessScrollListener
 import co.icanteach.projectx.common.observeNonNull
-import co.icanteach.projectx.common.runIfNull
 import co.icanteach.projectx.databinding.ActivityMainBinding
 import co.icanteach.projectx.ui.populartvshows.PopularTVShowsFeedAdapter
 import co.icanteach.projectx.ui.populartvshows.PopularTVShowsStatusViewState
@@ -46,10 +45,10 @@ class MainActivity : AppCompatActivity() {
             renderStatusResult(contents)
         }
 
-        savedInstanceState.runIfNull {
-            fetchMovies(FIRST_PAGE)
-        }
         initPopularTVShowsRecyclerView()
+
+        savedInstanceState ?: fetchMovies(FIRST_PAGE)
+
     }
 
     private fun renderStatusResult(statusViewState: PopularTVShowsStatusViewState) {

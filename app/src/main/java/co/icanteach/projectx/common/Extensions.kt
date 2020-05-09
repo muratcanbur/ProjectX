@@ -17,7 +17,10 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 /**
  * http://kotlinextensions.com/
  */
-fun <T : ViewDataBinding> ViewGroup?.inflate(@LayoutRes layoutId: Int, attachToParent: Boolean = true): T {
+fun <T : ViewDataBinding> ViewGroup?.inflate(
+    @LayoutRes layoutId: Int,
+    attachToParent: Boolean = true
+): T {
     return DataBindingUtil.inflate(
         LayoutInflater.from(this!!.context),
         layoutId,
@@ -52,7 +55,3 @@ fun <T> Observable<Resource<T>>.doOnSuccess(
 
 fun Disposable.addTo(compositeDisposable: CompositeDisposable): Disposable =
     apply { compositeDisposable.add(this) }
-
-fun Any?.runIfNull(block: () -> Unit) {
-    if (this == null) block()
-}
