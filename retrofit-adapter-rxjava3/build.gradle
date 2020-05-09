@@ -1,0 +1,40 @@
+apply plugin: Plugins.androidLibrary
+apply plugin: Plugins.kotlinAndroid
+apply plugin: Plugins.kotlinKapt
+apply plugin: Plugins.kotlinAndroidExtensions
+
+android {
+    compileSdkVersion Configs.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion Configs.minSdkVersion
+        targetSdkVersion Configs.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner Configs.testInstrumentationRunner
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+}
+
+dependencies {
+    implementation Dependencies.kotlin
+    implementation Dependencies.retrofit
+    implementation Dependencies.rxJava
+}

@@ -11,7 +11,7 @@ import co.icanteach.projectx.ui.populartvshows.model.PopularTvShowItem
 import com.google.common.truth.Truth.assertThat
 import io.mockk.*
 import io.mockk.impl.annotations.MockK
-import io.reactivex.Observable
+import io.reactivex.rxjava3.core.Observable
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

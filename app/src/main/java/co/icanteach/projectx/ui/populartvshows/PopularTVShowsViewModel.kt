@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import co.icanteach.projectx.common.*
 import co.icanteach.projectx.ui.populartvshows.model.PopularTvShowItem
-import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 
 class PopularTVShowsViewModel @Inject constructor(

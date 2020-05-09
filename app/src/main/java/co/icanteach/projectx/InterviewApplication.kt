@@ -1,19 +1,18 @@
 package co.icanteach.projectx
 
-import android.app.Activity
 import android.app.Application
 import co.icanteach.projectx.common.di.component.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasActivityInjector
+import dagger.android.HasAndroidInjector
 import javax.inject.Inject
 
-class InterviewApplication : Application(), HasActivityInjector {
+class InterviewApplication : Application(), HasAndroidInjector {
 
     @Inject
-    internal lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
+    internal lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
 
-    override fun activityInjector(): AndroidInjector<Activity> {
+    override fun androidInjector(): AndroidInjector<Any> {
         return dispatchingAndroidInjector
     }
 
