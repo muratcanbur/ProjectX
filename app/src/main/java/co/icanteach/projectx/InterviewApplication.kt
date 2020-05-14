@@ -20,8 +20,7 @@ class InterviewApplication : Application(), HasAndroidInjector {
         super.onCreate()
 
         DaggerAppComponent
-            .builder()
-            .app(this)
+            .factory()
             .create(this)
             .inject(this)
     }

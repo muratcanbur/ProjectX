@@ -7,9 +7,7 @@ import dagger.Provides
 @Module
 class PopularTvShowActivityModule {
 
-    @Provides
     @ActivityScope
-    fun providePopularTVShowsFeedAdapter(): PopularTVShowsFeedAdapter {
-        return PopularTVShowsFeedAdapter()
-    }
+    @get:Provides
+    val popularTVShowsFeedAdapter = PopularTVShowsFeedAdapter()
 }
