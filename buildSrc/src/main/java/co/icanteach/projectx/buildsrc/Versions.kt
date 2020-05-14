@@ -1,6 +1,6 @@
 object Versions {
     const val kotlinVersion = "1.3.72"
-    const val gradleVersion = "4.0.0-beta05"
+    const val gradleVersion = "4.0.0-rc01"
     const val appcompatVersion = "1.2.0-beta01"
     const val junitVersion = "4.13"
     const val androidxTestRunnerVersion = "1.3.0-beta01"
