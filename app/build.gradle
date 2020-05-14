@@ -51,7 +51,7 @@ dependencies {
     // Retrofit & Gson.
     implementation Dependencies.retrofit
     implementation Dependencies.retrofitGsonConverter
-    implementation project(":retrofit-adapter-rxjava3")
+    implementation Dependencies.retrofitRxJavaAdapter
     implementation Dependencies.okhttp
 
     // support
