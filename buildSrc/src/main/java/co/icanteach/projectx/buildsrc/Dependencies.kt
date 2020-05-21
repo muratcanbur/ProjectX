@@ -13,7 +13,7 @@ object Dependencies {
     const val retrofitGsonConverter =
         "com.squareup.retrofit2:converter-gson:${Versions.retrofitVersion}"
     const val retrofitRxJavaAdapter =
-        "com.github.akarnokd:rxjava3-retrofit-adapter:${Versions.retrofitRxJavaAdapterVersion}"
+        "com.squareup.retrofit2:adapter-rxjava3:${Versions.retrofitVersion}"
     const val okhttp = "com.squareup.okhttp3:logging-interceptor:${Versions.okhttpVersion}"
     const val recyclerView = "androidx.recyclerview:recyclerview:${Versions.recyclerViewVersion}"
     const val rxAndroid = "io.reactivex.rxjava3:rxandroid:${Versions.rxAndroidVersion}"

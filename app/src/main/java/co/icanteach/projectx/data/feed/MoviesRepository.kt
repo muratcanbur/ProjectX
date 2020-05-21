@@ -3,7 +3,6 @@ package co.icanteach.projectx.data.feed
 import co.icanteach.projectx.common.Resource
 import co.icanteach.projectx.data.feed.response.PopularTVShowsResponse
 import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
 class MoviesRepository @Inject constructor(private val remoteDataSource: MoviesRemoteDataSource) {
@@ -15,8 +14,7 @@ class MoviesRepository @Inject constructor(private val remoteDataSource: MoviesR
                 Resource.Success(it)
             }.onErrorReturn { throwable ->
                 Resource.Error(throwable)
-
-            }.subscribeOn(Schedulers.io())
-
+            }
     }
+
 }
