@@ -4,7 +4,7 @@ import co.icanteach.projectx.common.Resource
 import co.icanteach.projectx.common.map
 import co.icanteach.projectx.data.feed.MoviesRepository
 import co.icanteach.projectx.ui.populartvshows.model.PopularTvShowItem
-import io.reactivex.Observable
+import io.reactivex.rxjava3.core.Observable
 import javax.inject.Inject
 
 class FetchPopularTvShowUseCase @Inject constructor(
@@ -19,6 +19,6 @@ class FetchPopularTvShowUseCase @Inject constructor(
                 resource.map { response ->
                     mapper.mapFrom(response)
                 }
-            }.startWith(Resource.Loading)
+            }.startWithItem(Resource.Loading)
     }
 }
