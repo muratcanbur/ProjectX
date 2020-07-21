@@ -2,6 +2,7 @@ apply plugin: Plugins.androidApplication
 apply plugin: Plugins.kotlinAndroid
 apply plugin: Plugins.kotlinKapt
 apply plugin: Plugins.kotlinAndroidExtensions
+apply plugin: Plugins.hilt
 
 android {
     compileSdkVersion Configs.compileSdkVersion
@@ -34,10 +35,8 @@ dependencies {
     implementation Dependencies.material
 
     // dagger
-    implementation Dependencies.dagger
-    implementation Dependencies.daggerAndroid
-    kapt Dependencies.daggerCompiler
-    kapt Dependencies.daggerProcessor
+    implementation Dependencies.hiltAndroid
+    kapt Dependencies.hiltAndroidCompiler
 
     // Retrofit & Gson.
     implementation Dependencies.retrofit
