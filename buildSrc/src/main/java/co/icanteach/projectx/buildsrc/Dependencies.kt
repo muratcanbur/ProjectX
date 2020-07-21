@@ -21,4 +21,6 @@ object Dependencies {
     val mockK = "io.mockk:mockk:${Versions.mockKVersion}"
     val coreTesting = "androidx.arch.core:core-testing:${Versions.coreTestingVersion}"
     val material = "com.google.android.material:material:${Versions.materialVersion}"
+    val hiltAndroid = "com.google.dagger:hilt-android:${Versions.hiltVersion}"
+    val hiltAndroidCompiler = "com.google.dagger:hilt-android-compiler:${Versions.hiltVersion}"
 }

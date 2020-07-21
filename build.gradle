@@ -10,6 +10,7 @@ buildscript {
         classpath Classpaths.gradleClasspath
         classpath Classpaths.kotlinGradleClasspath
         classpath Classpaths.gradleVersionPlugin
+        classpath Classpaths.hilt
     }
 }
 

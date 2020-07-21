@@ -17,4 +17,6 @@ object Versions {
     val coreTestingVersion = "2.0.0"
     val materialVersion = "1.2.0-alpha01"
     val gradleVersionPluginVersion = "0.27.0"
+    val hiltVersion = "2.28.1-alpha"
+
 }

@@ -13,10 +13,10 @@ import co.icanteach.projectx.ui.populartvshows.PopularTVShowsFeedAdapter
 import co.icanteach.projectx.ui.populartvshows.PopularTVShowsStatusViewState
 import co.icanteach.projectx.ui.populartvshows.PopularTVShowsViewModel
 import co.icanteach.projectx.ui.populartvshows.model.PopularTvShowItem
-import dagger.android.AndroidInjection
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     @Inject
@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
